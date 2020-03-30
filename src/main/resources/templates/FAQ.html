@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{faq.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{faq.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <main th:switch="__${#locale.language}__">
+        <div th:case="de" class="ui segment">
+            <div class="ui vertical segment">
+                <h3>Warum kann ich das Ferienhaus nicht reservieren?</h3>
+                <p>Ein Ferienhaus kann nur ab 30 Tagen vor Urlaubsbeginn reserviert werden. Sollte der gewünschte Reisezeitraum in weniger als 30 Tagen beginnen, kann das Ferienhaus nur gebucht werden.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Wann muss das Ferienhaus angezahlt worden sein?</h3>
+                <p>Die Anzahlung muss innerhalb von 7 Tagen erfolgt sein, sonst wird die Buchung automatisch storniert.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Warum kann der Vermieter eine Buchung oder Reservierung nicht bestätigen?</h3>
+                <p>Um einen flüssigen Ablauf zu gewährleisten, wird davon ausgegangen, dass ein zur Verfügung gestelltes Ferienhaus zur Vermietung bereit steht. Aus diesem Grund kann eine Reservierung oder Buchung nur vom Vermieter storniert werden. Dies ist jedoch jederzeit möglich.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Wann muss ich meine Reservierung in eine Buchung umgewandelt haben?</h3>
+                <p>Eine Reservierung muss 30 Tage vor Urlaubsbeginn in eine Buchung umgewandelt worden sein.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Warum wurde meine Reservierung oder Buchung storniert?</h3>
+                <p>Der Vermieter hat das Recht eine Buchung oder Reservierung jederzeit zu stornieren.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Warum gibt es eine Gebühr für die Stornierung?</h3>
+                <p>Eine Buchung kann durch den Mieter immer storniert werden. Sollte dies jedoch unter einer Woche vor Urlaubsbeginn geschehen, gibt es eine Gebühr für die jeweilige Buchung.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Warum kann ich mich als Eventmanager oder Vermieter nach meiner Registrierung nicht anmelden?</h3>
+                <p>Der Admin muss das Konto sowohl für Eventmanager als auch für Vermieter zunächst bestätigen. Erst nach Bestätigung ist die Anmeldung möglich.</p>
+            </div>
+        </div>
+
+        <div th:case="en" class="ui segment">
+            <div class="ui vertical segment">
+                <h3>Why can I not reserve a holiday home?</h3>
+                <p>A holiday home can only be reserved if the vacation is supposed to start in over 30 days. If the desired holiday period starts in less than 30 days, the holiday home can only be booked.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>When is the deposit required?</h3>
+                <p>The deposit needs to be payed 7 days after the initial booking. If the deposit is not payed, the booking will be cancelled automatically.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Why can a landlord not confirm a reservation or booking?</h3>
+                <p>Assuming that a placed holiday home is available for booking, the landlord can only cancel a booking or reservation to secure a fast and steady workflow. Nevertheless, he can do that any time with any kind of booking.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>When do I need to convert my reservation into a booking?</h3>
+                <p>30 days before the desired vacation period, a reservation has to be converted into a booking.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Why was my reservation or booking cancelled?</h3>
+                <p>A landlord can cancel a reservation or booking any time.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Why do I have to pay a fee for my cancellation?</h3>
+                <p>A booking or reservation can always be cancelled by a tenant. Should a tenant cancel their booking in less than 30 days before the holiday period, there will be a cancellation fee.</p>
+            </div>
+
+            <div class="ui vertical segment">
+                <h3>Why can I, as an event manager or landlord, not login right after registering?</h3>
+                <p>The admin has to confirm every event manager or landlord account. Only after is it possible to login.</p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

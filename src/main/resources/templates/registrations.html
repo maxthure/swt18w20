@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{registrations.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{registrations.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <table class="ui single line celled table">
+        <thead>
+        <tr>
+            <th th:text="#{user.firstname}">!!!ERROR!!!</th>
+            <th th:text="#{user.lastname}">!!!ERROR!!!</th>
+            <th th:text="#{user.email}">!!!ERROR!!!</th>
+            <th th:text="#{user.adress}">!!!ERROR!!!</th>
+            <th th:text="#{user.company}">!!!ERROR!!!</th>
+            <th th:text="#{user.role}">!!!ERROR!!!</th>
+            <th th:text="#{general.add}">!!!ERROR!!!</th>
+            <th th:text="#{general.delete}">!!!ERROR!!!</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" user : ${usersList}">
+            <td th:text="${user.key.firstname}">!!!ERROR!!!</td>
+            <td th:text="${user.key.lastname}">!!!ERROR!!!</td>
+            <td th:text="${user.key.email}">!!!ERROR!!!</td>
+            <td th:utext="${user.key.street}+ '&lt;br /&gt;' +${user.key.postcode}+ '&lt;br /&gt;' +${user.key.city}+ '&lt;br /&gt;' +#{'register.country.'+${user.key.country}}">!!!ERROR!!!</td>
+            <div th:switch="${user.value}">
+                <div th:case="'ROLE_EVENTMANAGER'" class="field">
+                    <td th:text="${user.key.company}">!!!ERROR!!!</td>
+                    <td th:text="#{user.eventmanager}">!!!ERROR!!!</td>
+                </div>
+                <div th:case="*" class="field">
+                    <td></td>
+                    <td th:text="#{user.landlord}">!!!ERROR!!!</td>
+                </div>
+            </div>
+            <td>
+                <form method="post" role="form" class="ui form" id="form_" th:action="@{/registrations}" th:object="${form_}">
+                    <input id="firstname_" name="firstname" th:value="${user.key.firstname}" type="hidden"/>
+                    <input id="lastname_" name="lastname" th:value="${user.key.lastname}" type="hidden"/>
+                    <input id="email_" name="email" th:value="${user.key.email}" type="hidden"/>
+                    <input id="password_" name="password" th:value="${user.key.password}" type="hidden"/>
+                    <input id="street_" name="street" th:value="${user.key.street}" type="hidden"/>
+                    <input id="postcode_" name="postcode" th:value="${user.key.postcode}" type="hidden"/>
+                    <input id="city_" name="city" th:value="${user.key.city}" type="hidden"/>
+                    <input id="country_" name="country" th:value="${user.key.country}" type="hidden"/>
+                    <div th:switch="${user.value}">
+                        <div th:case="'ROLE_EVENTMANAGER'" class="field">
+                            <input id="company_" name="company" th:value="${user.key.company}" type="hidden"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="ui button" th:text="#{general.add}">!!!ERROR!!!</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" role="form" class="ui form" id="form__" th:action="@{/registrations/delete}" th:object="${form_}">
+                    <input id="firstname__" name="firstname" th:value="${user.key.firstname}" type="hidden"/>
+                    <input id="lastname__" name="lastname" th:value="${user.key.lastname}" type="hidden"/>
+                    <input id="email__" name="email" th:value="${user.key.email}" type="hidden"/>
+                    <input id="password__" name="password" th:value="${user.key.password}" type="hidden"/>
+                    <input id="street__" name="street" th:value="${user.key.street}" type="hidden"/>
+                    <input id="postcode__" name="postcode" th:value="${user.key.postcode}" type="hidden"/>
+                    <input id="city__" name="city" th:value="${user.key.city}" type="hidden"/>
+                    <input id="country__" name="country" th:value="${user.key.country}" type="hidden"/>
+                    <div th:switch="${user.key}">
+                        <div th:case="'ROLE_EVENTMANAGER'" class="field">
+                            <input id="company__" name="company" th:value="${user.key.company}" type="hidden"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="ui button" th:text="#{general.delete}">!!!ERROR!!!</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

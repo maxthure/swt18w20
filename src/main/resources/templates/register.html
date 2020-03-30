@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+            $('#postcode').keyup(function() {
+                if ($(this).val().length > 4) {
+                    var ort = $('#city');
+                    $.getJSON('http://www.geonames.org/postalCodeLookupJSON?&country='+$('#country').val()+'&callback=?', {postalcode: this.value }, function(response) {
+                        if (response && response.postalcodes.length && response.postalcodes[0].placeName) {
+                            ort.val(response.postalcodes[0].placeName);
+                        }
+                    })
+                } else {
+                    $('#city').val('');
+                }
+            });
+            $('#country').change(function (){
+                $('#postcode').val('');
+                $('#city').val('');
+            });
+        });
+    </script>
+
+    <title th:text="#{register.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{register.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form method="post" role="form" class="ui form" id="form" autocomplete="off" th:action="@{/{ph}/register(ph=${this})}" th:object="${form}">
+
+        <h3 class="ui dividing header"></h3>
+
+        <div class="ui negative message" th:if="${invalid}">
+            <p th:text="#{register.email.inUse}">!!!ERROR!!!</p>
+        </div>
+
+        <div class="required field">
+            <label for="firstname" th:text="#{user.firstname}">!!!ERROR!!!</label>
+            <input id="firstname" name="firstname" th:field="*{firstname}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
+                <p>Firstname must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="lastname" th:text="#{user.lastname}">!!!ERROR!!!</label>
+            <input id="lastname" name="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
+                <p>Lastname must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="email" th:text="#{user.email}">!!!ERROR!!!</label>
+            <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError" type="email" required="required" pattern="([\w\.]+)@([\w\.]+)\.(\w+)" /><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                <p>Email must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="password" th:text="#{user.password}">!!!ERROR!!!</label>
+            <input id="password" name="password" th:field="*{password}" th:errorclass="fieldError" type="password" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                <p>Password must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="street" th:text="#{user.street}">!!!ERROR!!!</label>
+            <input id="street" name="street" th:field="*{street}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+                <p>Street must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="postcode" th:text="#{user.postcode}">!!!ERROR!!!</label>
+            <input id="postcode" name="postcode" value="" th:field="*{postcode}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">
+                <p>Postcode must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="city" th:text="#{user.city}">!!!ERROR!!!</label>
+            <input id="city" name="city" value="" th:field="*{city}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                <p>City must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="country" th:text="#{user.country}">!!!ERROR!!!</label>
+            <div class="ui fluid search selection dropdown">
+                <input type="hidden" id="country" name="country" value="de" th:errorclass="fieldError" required>
+                <div class="ui negative message" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">
+                    <p>Country must not be empty.</p>
+                </div>
+                <i class="dropdown icon"></i>
+                <div class="default text">Select Country</div>
+                <div class="menu">
+                    <div class="item" data-value="au"><i class="au flag"></i><span th:text="#{register.country.au}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="be"><i class="be flag"></i><span th:text="#{register.country.be}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="bg"><i class="bg flag"></i><span th:text="#{register.country.bg}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="cn"><i class="cn flag"></i><span th:text="#{register.country.cn}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="dk"><i class="dk flag"></i><span th:text="#{register.country.dk}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="de"><i class="de flag"></i><span th:text="#{register.country.de}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="gb"><i class="gb flag"></i><span th:text="#{register.country.gb}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ee"><i class="ee flag"></i><span th:text="#{register.country.ee}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="fi"><i class="fi flag"></i><span th:text="#{register.country.fi}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="fr"><i class="fr flag"></i><span th:text="#{register.country.fr}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="gr"><i class="gr flag"></i><span th:text="#{register.country.gr}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="hk"><i class="hk flag"></i><span th:text="#{register.country.hk}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ie"><i class="ie flag"></i><span th:text="#{register.country.ie}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="is"><i class="is flag"></i><span th:text="#{register.country.is}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="it"><i class="it flag"></i><span th:text="#{register.country.it}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="jp"><i class="jp flag"></i><span th:text="#{register.country.jp}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ca"><i class="ca flag"></i><span th:text="#{register.country.ca}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="hr"><i class="hr flag"></i><span th:text="#{register.country.hr}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="cu"><i class="cu flag"></i><span th:text="#{register.country.cu}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="lv"><i class="lv flag"></i><span th:text="#{register.country.lv}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="li"><i class="li flag"></i><span th:text="#{register.country.li}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="lt"><i class="lt flag"></i><span th:text="#{register.country.lt}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="lu"><i class="lu flag"></i><span th:text="#{register.country.lu}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="mt"><i class="mt flag"></i><span th:text="#{register.country.mt}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="mc"><i class="mc flag"></i><span th:text="#{register.country.mc}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="nl"><i class="nl flag"></i><span th:text="#{register.country.nl}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="no"><i class="no flag"></i><span th:text="#{register.country.no}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="at"><i class="at flag"></i><span th:text="#{register.country.at}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="pl"><i class="pl flag"></i><span th:text="#{register.country.pl}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="pt"><i class="pt flag"></i><span th:text="#{register.country.pt}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="qa"><i class="qa flag"></i><span th:text="#{register.country.qa}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ro"><i class="ro flag"></i><span th:text="#{register.country.ro}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ru"><i class="ru flag"></i><span th:text="#{register.country.ru}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="se"><i class="se flag"></i><span th:text="#{register.country.se}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ch"><i class="ch flag"></i><span th:text="#{register.country.ch}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="sg"><i class="sg flag"></i><span th:text="#{register.country.sg}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="sk"><i class="sk flag"></i><span th:text="#{register.country.sk}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="si"><i class="si flag"></i><span th:text="#{register.country.si}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="es"><i class="es flag"></i><span th:text="#{register.country.es}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="za"><i class="za flag"></i><span th:text="#{register.country.za}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="th"><i class="th flag"></i><span th:text="#{register.country.th}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="cz"><i class="cz flag"></i><span th:text="#{register.country.cz}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="tr"><i class="tr flag"></i><span th:text="#{register.country.tr}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="ua"><i class="ua flag"></i><span th:text="#{register.country.ua}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="hu"><i class="hu flag"></i><span th:text="#{register.country.hu}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="us"><i class="us flag"></i><span th:text="#{register.country.us}">!!!ERROR!!!</span></div>
+                    <div class="item" data-value="cy"><i class="cy flag"></i><span th:text="#{register.country.cy}">!!!ERROR!!!</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:switch="${this}">
+            <div th:case="'eventmanager'">
+                <div class="field">
+                    <label for="company" th:text="#{user.company}">!!!ERROR!!!</label>
+                    <input id="company" name="company" th:field="*{company}" th:errorclass="fieldError" type="text"/><br/>
+                    <div class="ui negative message" th:if="${#fields.hasErrors('company')}" th:errors="*{company}">
+                        <p>Company must not be empty.</p>
+                    </div>
+                </div>
+            </div>
+            <div/>
+        </div>
+
+        <button type="submit" class="ui button" th:text="#{register.title}">!!!ERROR!!!</button>
+    </form>
+</div>
+</body>
+</html>

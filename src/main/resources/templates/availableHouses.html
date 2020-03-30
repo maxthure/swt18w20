@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{availability.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{availability.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui link cards" th:remove="all-but-first">
+        <a class="ui card" th:each="house : ${availableHouses}" th:href="@{/detail/{id}/{dayStart}_{monthStart}_{yearStart}-{dayEnd}_{monthEnd}_{yearEnd}(id=${house.id},dayStart=${form.dayStart},monthStart=${form.monthStart},yearStart=${form.yearStart},dayEnd=${form.dayEnd},monthEnd=${form.monthEnd},yearEnd=${form.yearEnd})}">
+            <div class="image">
+                <img th:src="@{/uploads/{image}(image=${house.image})}"/>
+            </div>
+            <div class="content">
+                <h2 class="header" th:text="${house.nameHouse}">!!!ERROR!!!</h2>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{house.beds} + ': ' + ${house.beds}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{user.postcode} + ': ' + ${house.address[1]}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${house.description}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${{house.price}}">!!!ERROR!!!</div>
+            </div>
+            <div class="extra content" th:text="${{house.nameLandlord}}">!!!ERROR!!!</div>
+
+            <form class="ui form" method="post" th:action="@{/houses/{id}/{dayStart}_{monthStart}_{yearStart}-{dayEnd}_{monthEnd}_{yearEnd}(id=${house.id},dayStart=${form.dayStart},monthStart=${form.monthStart},yearStart=${form.yearStart},dayEnd=${form.dayEnd},monthEnd=${form.monthEnd},yearEnd=${form.yearEnd})}">
+                <input type="hidden" name="pid" value="0" th:value="${house.id}"/>
+                <button type="submit" class="ui labeled icon button">
+                    <i class="add to cart icon"></i><span th:text="#{detail.choose}">!!!ERROR!!!</span>
+                </button>
+            </form>
+        </a>
+    </div>
+    <h3 class="ui dividing header"></h3>
+    <header>
+        <h2 th:text="#{availability.notAvailable}">!!!ERROR!!!</h2>
+    </header>
+    <div class="ui link cards" th:remove="all-but-first">
+        <a class="ui card" th:each="house : ${wishlistHouses}" th:href="@{/detail/wishlist/{id}/{dayStart}_{monthStart}_{yearStart}-{dayEnd}_{monthEnd}_{yearEnd}(id=${house.id},dayStart=${form.dayStart},monthStart=${form.monthStart},yearStart=${form.yearStart},dayEnd=${form.dayEnd},monthEnd=${form.monthEnd},yearEnd=${form.yearEnd})}">
+            <div class="image">
+                <img th:src="@{/uploads/{image}(image=${house.image})}"/>
+            </div>
+            <div class="content">
+                <h2 class="header" th:text="${house.nameHouse}">!!!ERROR!!!</h2>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{house.beds} + ': ' + ${house.beds}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{user.postcode} + ': ' + ${house.address[1]}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${house.description}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${{house.price}}">!!!ERROR!!!</div>
+            </div>
+            <div class="extra content" th:text="${{house.nameLandlord}}">!!!ERROR!!!</div>
+
+            <form class="ui form" method="post" th:action="@{/houses/wishlist/{id}/{dayStart}_{monthStart}_{yearStart}-{dayEnd}_{monthEnd}_{yearEnd}(id=${house.id},dayStart=${form.dayStart},monthStart=${form.monthStart},yearStart=${form.yearStart},dayEnd=${form.dayEnd},monthEnd=${form.monthEnd},yearEnd=${form.yearEnd})}">
+                <input type="hidden" name="pid" value="0" th:value="${house.id}"/>
+                <button type="submit" name= "addToWishlist" class="ui button" th:text="#{availability.wishlist}">!!!ERROR!!!</button>
+            </form>
+        </a>
+    </div>
+
+
+</div>
+</body>
+</html>

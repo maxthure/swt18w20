@@ -1,0 +1,324 @@
+:project_name: Ferienhaus Vermietung
+= Pflichtenheft __{project_name}__
+:author: Marc Kandler
+:revnumber: 0.1
+:revdate: {docdatetime}
+:revremark: Work in Progress
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:numbered:
+
+[options="header"]
+[cols="1, 1, 1, 1, 4"]
+|===
+|Version | Status      | Bearbeitungsdatum   	| Autoren(en) 		                        | Vermerk
+|0.3     | In Arbeit   | 21.10.2018- ...        | Sarah Schönfelder, Thure Nebendahl, Adrian Munoz Hernando, Florian Münch       | Bearbeitete Version
+|===
+
+
+== Zusammenfassung
+Diese Dokument stellt das Pflichtenheft zum Projekt __{project_name}__ dar.
+Ziel dieses Dokument ist es, eine Grundlage zwischen Entwicklern und Kunde zu schaffen, bezüglich der Systemanforderungen und -funktionen.
+Diese Grundlage soll auch Grundlage des Vertrags sein und die in diesem Pflichtenheft spezifizierten Anforderungen sind von den Entwicklern zu erfüllen.
+Zum besseren Verständnis und zur detaillierteren Absprache der Anforderungen enhält dieses Pflichtenheft teilweise auch schon weiterführende Details, wie die Anforderungen implementiert werden sollen.
+
+Am Ende des Projekts wird dieses Pflichtenheft dazu verwendet, um zu bestimmen, ob die gelieferte Software der geplanten Software entspricht und somit, ob alle Anforderungen an die Software erfüllt wurden.
+Sollten während der Entwicklung Änderungen gewünscht werden, werden diese hier ebenfalls dokumentiert.
+
+== Aufgabenstellung und Zielsetzung
+Gewünscht ist ein Webportal, was sich mit der Vermietung von Ferienhäusern im Raum in und um Dresden beschäftigen soll.
+Es soll die Möglichkeit geboten werden, sich Ferienhäuser anzuschauen nach erfolgreicher Registrierung für einen bestimmten Zeitraum zu mieten. Das Haus wird dabei durch den Ort, eine Beschreibung, ein paar Bilder und dem Vermieter repräsentiert. Benutzer können dabei das Haus für einen bestimmten Zeitraum (Minimum/Maximum kann der jeweilige Vermieter festlegen) für sich reservieren oder buchen, sofern dieses noch zur gewünschten Zeit frei ist. Beginnt der Urlaub bereits in einem Monat oder weniger, ist keine Reservierung mehr möglich, sondern nur noch die Buchung. Bei einer Buchung fällt eine Anzahlung an, die sich auf ca. 10% der Gesamtkosten des Urlaubs beläuft. Diese muss er dem Vermieter fristgerecht (innerhalb von 7 Werktagen vor Urlaubsbeginn) überweisen, der dann die Buchung bestätigt. Ansonsten verfällt die Reservierung und wird wieder frei. Weiterhin ist vorgesehen, dass der einmal gebuchte Urlaub storniert werden kann. Bis zu einer gewissen Frist, einige Tage vor Urlaubsbeginn, soll das kostenfrei sein, während nach Ablauf dieser Frist die Anzahlung vom Vermieter einbehalten werden kann.
+
+Es sind natürlich auch Vermieter vorhanden, die sich selbst aber nicht registrieren dürfen, sondern vom Administrator erstellt werden. Nach erfolgreichem Einloggen eines Vermieters hat dieser die Möglichkeit, seine Häuser zu verwalten, was im Wesentlichen bedeutet, neue Häuser im System einzutragen (die dann von anderen Nutzern eingesehen werden können), bestehende Häuser zu ändern oder zu löschen. Weiterhin muss er eine umfangreiche Übersicht über seine Häuser haben. Das beinhaltet eine Miethistorie, welche anzeigt, wer wann wie lange in dem Haus gelebt hat, eine Übersicht über aktuelle Buchungen und Reservierungen und eine Liste von Events. Der Vermieter hat somit die Möglichkeit, Buchungen und Reservierungen zu bestätigen oder zu verwerfen (wobei darauf zu achten ist, was passiert, wenn eine schon bezahlte Buchung rückgängig gemacht werden muss), Events zu bestätigen oder zu löschen und die Hausdetails zu verändern.
+
+Weiterhin soll das Portal mit einer bereits angedeuteten Eventfirma zusammenarbeiten, die sich ebenfalls in und um Dresden engagiert. Eventmitarbeiter haben daher ebenfalls einen Zugang zu dem System. Diese können nach erfolgreichem Einloggen Events erstellen, verändern oder löschen. Dabei unterscheidet man große einmalige Events, für die eine Reservierung nötig ist, und kleinere wöchentliche stattfindende Events, die kostenfrei besuchbar sind. Größere Events müssen beim Buchen des Urlaubes mit zu gebucht werden, was es nötig macht, dass diese Events an ein oder mehrere Häuser gebunden sind. Natürlich kommen nur jene Häuser in Frage, die relativ nah zu den Veranstaltungsort des Events sind. Ein Event wird durch den Namen, den Ort, die Zeit, in der es stattfindet, und den Preis (ggf. kostenlos) beschrieben. Wenn ein größeres Event abgebrochen wird, müssen den Urlaubern, die gebucht haben auch ihre Kosten zurückerstattet werden. Bevor Events aber an Häuser gebunden werden und somit den Benutzern sichtbar werden, muss das vom jeweiligen Vermieter bestätigt werden. Kleinere Events bedürfen auch einer Bestätigung, müssen aber nicht gebucht werden und dienen somit den Benutzern lediglich als Hinweis, wie sie ihren Urlaub verleben können.
+Als letztes wird ein Administratorzugang gebraucht, der das System verwalten soll. Im Wesentlichen bezieht sich das auf die Verwaltung von Mitgliedern, Löschen und Freischalten von Urlauberkonten und Erstellen und Löschen von Vermieter- und Eventmitgliederkonten. 
+
+== Produktnutzung
+Das Webportal dient der Vermietung und Reservierung/Buchung von Ferienhäusern in Dresden und Umgebung. Urlauber, die Ferienhäuser buchen werden als Benutzer und lokale Ferienhausanbieter als Vermieter repräsentiert. Benutzer können nach erfolgreicher Registrierung Ferienhäuser buchen, während Vermieter vom Administrator erstellt werden müssen, um Häuser vermieten zu können. Zusätzlich wird das Ferienhausangebot um diverse lokale Events erweitert, die je nach Größe dazu gebucht werden können. Daher erhalten Mitarbeiter von Eventfirmen ebenfalls einen Zugang zum System, um besagte Events zu verwalten.
+
+== Interessensgruppen (Stakeholders)
+Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
+|===
+|Name                               |Priorität (1-5)    |Beschreibung
+
+
+|Vermieter(Lokale aus Dresden)      |5                  | Nutzer durch Bereitstellung des Häuserangebots
+|Benutzer(Touristen)                |5                  | Nutzung des durch die Webapplikation bereitgestellten Angebots
+|Eventunternehmen(Eventmitarbeiter) |3                  | Zusatzangebot für die Benutzer
+|Administrator                      |2                  | dient zur Verwaltung
+|Entwickler                         |3                  | Personen, die sich mit der Implementierung und Pflege des Webdienstes befassen
+|===
+
+== Systemgrenze und Top-Level-Architektur
+
+=== Kontextdiagramm
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Kontextdiagramm/KontextdiagrammJPG.jpg[100%,100%]
+
+=== Top-Level-Architektur
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Top-Level-Architektur/Top-Level_Architektur.jpg[100%,100%]
+
+== Anwendungsfälle
+
+=== Akteure
+
+Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Dokumentieren Sie die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Die Tabelle hat also mindestens zwei Spalten (Akteur Name und Kommentar).
+Weitere relevante Spalten können bei Bedarf ergänzt werden.
+
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+[cols="1,4"]
+|===
+|Name |Beschreibung
+|Administrator  |Verwaltung der Konten
+|Vermieter  |Verwaltet eigene Häuser, stellt diese zum Mieten bereit und bestimmt über mögliche besuchbare Events für die Benutzer seiner Häuser
+|Eventmitarbeiter |Erstellt Events, die Vermieter für seine Häuser bestätigt und verwaltet solche Events
+|Benutzer |Kann Ferienhäuser reservieren und buchen, einschließlich der dafür angebotenen Events
+|===
+
+=== Überblick Anwendungsfalldiagramm
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Anwendungsfalldiagramm/Ferienhaus_Vermietung.jpg[height=1300]
+
+=== Anwendungsfallbeschreibungen
+
+*Anwendung des Administrators*
+
+Der Administrator kann die Konten der Nutzer verwalten. Er kann Benutzerkonten freischalten und eventuell löschen und die Konten der Vermieter und Eventmitarbeiter erstellen und ebenfalls löschen.
+
+*Anwenungsfall Häuser erstellen durch Vermieter:*
+
+Der Vermieter wurde durch den Administrator erstellt und kann nun selbst Ferienhäuser erstellen, verändern oder löschen.
+
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Sequenzdiagramm/Erstellen%20eines%20Ferienhauses.jpg[height=350]
+
+*Anwendungsfall Event erstellen durch Eventmitarbeiter:*
+
+Der Eventmitarbeiter wurde ebenfalls durch den Administrator erstellt und kann nun Events erstellen, diese Häusern zuweisen, verändern oder löschen.
+
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Sequenzdiagramm/Erstellen%20eines%20Events.jpg[height=400]
+
+*Anwendungsfall Konto erstellen durch Benutzer:*
+
+Der Benutzer kann sich ein eigenes Konto erstellen, welches von dem Administrator bestätigt werden muss.
+
+*Anwendungfall Events bestätigen:*
+
+Bei erneutem Anmelden des Vermieters bekommt dieser einen Hinweis darauf, dass neue Events seinen Häusern zugewiesen wurden. Nun kann er diese bestätigen oder ablehnen.
+
+*Anwendungsfall Buchung/Reservierung:*
+
+Ein Benutzer kann sich auf seinem Konto anmelden und ein Ferienhaus mit eventuell passendem Event reservieren oder buchen. Der Vermieter des Hauses muss diese Reservierung oder Buchung bestätigen oder verwerfen. Eine Reservierung muss nach einem Zeitraum von 7 Tagen in eine Buchung umgewandelt werden, sonst wird sie durch das System verworfen.
+
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Sequenzdiagramm/Buchung%20eines%20Ferienhauses.jpg[height=1000]
+
+*Anwendungsfall Stornierung*
+
+Sowohl der Benutzer, als auch der Vermieter haben die Möglichkeit eine Buchung oder Reservierung zu stornieren.
+
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Sequenzdiagramm/Stornierung%20einer%20Buchung.jpg[height=500]
+
+*Anwendungsfall Miethistory:*
+
+Nachdem mindestens eine Buchung erfolgt und der Urlaub beendet wurde, existiert nun eine gefüllte Miethistory, die aufzeigt wer wann in einem Feriehaus für wie lang übernachtet hat.
+
+
+//Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
+//Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
+//Einfache Anwendungsfälle mit einem Absatz beschreiben.
+//Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
+
+== Funktionale Anforderungen
+
+=== Muss-Kriterien
+Was das zu erstellende Programm auf alle Fälle leisten muss.
+
+- Registrierung und Login Benutzer, Vermieter und Eventmitarbeiter
+- Häuser erstellen, bearbeiten, löschen
+- Events erstellen, bearbeiten, löschen
+- Veranstaltungsverwaltung
+- Veranstaltungsübersicht 
+- Übersicht für Kunden über verfügbare Häuser
+- Buchungs- oder Reservierungsoption
+- Reservierung muss einen Monat vor dem Urlaub in Buchung umgewandelt werden oder sie wird verworfen
+- Vermieter darf Mindest-/Maximalanzahl an Übernachtungen bestimmen
+- Frist für Anzahlung der Buchung 7 Werktage, sonst verwerfen Buchung 
+- Benutzer kann Reservieren, Buchen oder Reservierung in Buchung umwandeln
+- Reservierung wird nach gewisser Zeit verworfen
+- Stornierung möglich seitens Vermieter und Benutzer
+- Finanzberichte: Einnahmen, Ausgaben, Bilanz, Statistiken zur Auslastung, ...
+- Rechnungserstellung bei Reservierung, Buchung, Stornierung
+- Datenbank muss persistent sein
+- Detailansicht der Events (Weiterleiten wenn Vermieter Event bestätigen soll)
+- Übersichten für Kunden, Vermieter und Eventmitarbeiter
+- Eventkalender für Benutzer (hier erscheinen Events die gebucht wurden und kleine Events)
+- Reservierung nur möglich, wenn Urlaub in mehr als einem Monat beginnt
+- Reservierungsübersicht der Events für Benutzer, Vermieter und Eventmitarbeiter
+- Übersicht über Buchung und Reservierung für Benutzer und Vermieter
+- Stornierungsübersicht 
+- 'Warenkorb', in dem Änderung, Entfernen, Leeren, Buchen und Reservieren möglich ist, als letzte Seite vor Bestätigung der Reservierung/Buchung 
+- Buchungsdetailübersicht über offene, abgeschlossene, stornierte, reservierte Buchungen
+- Vermieter hat Übersicht über gesamte Häuser und deren Belegung (dezeitig, vergangen und zukünftig)
+- Miethistory über vergangene Belegungen 
+
+
+=== Kann-Kriterien
+Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
+
+- Englische Übersetzung der Seite 
+- Benachrichtigungen für Nutzer, wenn es Neuigkeiten gibt
+- Karte auf Ferienhaus-Detailseite
+
+
+== Nicht-Funktionale Anforderungen
+
+=== Qualitätsziele
+
+[%header,format=csv]
+|===
+Ziel, Priorität
+Gewährleistung der Sicherheit der User-Accounts, hoch
+Portal soll übersichtlich und einfach zu bedienen sein, mittel
+Ferienhausbilder sollen qualitativ hochwertig sein, niedrig
+Möglichst bequemer Zahlvorgang für Benutzer, niedrig
+|===
+
+=== Konkrete Nicht-Funktionale Anforderungen
+
+- bei Registrierung wird eingegebenes Passwort auf Sicherheitskriterien (Groß-/Kleinbuchstaben, Sonderzeichen, Zahlen) überprüft
+- klare, einfach verständliche Benutzeroberfläche
+- Ferienhausbilder werden beim Hochladen auf Auflösung überprüft 
+- verschiedene Zahlungsarten für Anzahlung anbieten
+
+== GUI Prototyp
+
+=== Überblick: Dialoglandkarte
+//Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
+
+==== Benutzer
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/User/GUI-User-Entwurf-Richtungen1.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/User/GUI-User-Entwurf-Richtungen2.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/User/GUI-User-Entwurf-Richtungen3.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/User/GUI-User-Entwurf-Richtungen4.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/User/GUI-User-Entwurf-Richtungen5.jpg[width=1240,height=1753]
+
+==== Vermieter
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Vermieter/GUI-Vermieter-Entwurf-Richtungen1.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Vermieter/GUI-Vermieter-Entwurf-Richtungen2.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Vermieter/GUI-Vermieter-Entwurf-Richtungen3.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Vermieter/GUI-Vermieter-Entwurf-Richtungen4.jpg[width=1240,height=1753]
+
+==== Eventmanager
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Eventmanager/GUI-Eventmanager-Richtungen1.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Eventmanager/GUI-Eventmanager-Richtungen2.png[width=1240]
+
+==== Admin
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Admin/GUI-Admin-Entwurf-Richtungen1.jpg[width=1240,height=1753]
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/GUI-Entwurf/Admin/GUI-Admin-Entwurf-Richtungen2.png[width=1240]
+
+=== Dialogbeschreibung
+==== Benutzer
+[horizontal]
+1:: Über den Suchen Knopf lassen sich Ferienhäuser suchen (Button "Suchen"). Kriterien sind hierbei An- und Abreisetag, sowie verschiedene vorgegebene Filter.
+2:: Werden die Suchergebnisse dann angezeigt, lässt sich durch anklicken eines Suchergebnisses dessen Detailseite aufrufen.
+3:: Auf der Detailseite hat man die Möglichkeit das Ferienhaus für den angegebenen Zeitraum zu buchen (Button "Buchen").
+4:: Auf der nachfolgenden Seite können nun Events zur Buchung hinzugefügt werden (Button "Hinzufügen" des jeweiligen Events).
+5:: Danach (Button "Weiter") werden alle zu buchenden Posten aufgelistet, die Zahlungsart ausgewählt werden (fällt bei Reservierung weg) und es kann bestellt werden (Button "Bestellen").
+6:: Ist der Nutzer noch nicht eingeloggt, wird er nun dazu aufgefordert.
+7:: Es gibt eine abschließende Bestellübersicht und der Benutzer hat die Möglichkeit seinen Urlaub samt Events in seinen Kalender eintragen zu lassen (Button "Zu Kalender hinzufügen").
+
+==== Vermieter
+[horizontal]
+1:: Vermieter können sich mit "Username" und "Password" einloggen.
+
+2:: Angezeigt wird daraufhin eine Übersicht ihrer Ferienhäuser.
+
+3.1.1:: Klicken sie eins der Ferienhäuser an, wird dem Vermieter dessen Details angezeigt und er kann die Informationen zun Ferienhaus bearbeiten, sowie Events zum Ferienhaus hinzufügen (Button "Hinzufügen" bei Events).
+
+3.1.2:: Auf der nun folgenden Seite kann der Vermieter Events auswählen und sie seinem Ferienhaus hinzufügen (Button "Hinzufügen"). Daraufhin wird er wieder auf die Detailseite geleitet.
+
+3.2.1:: Der Vermieter hat die Möglichkeit neue Ferienhäuser hinzuzufügen (Button "Neues Ferienhaus").
+
+3.2.2:: Hat der Vermieter alle notwendigen Informationen hinterlegt, kann er das Ferienhaus speichern (Button "Speichern") und es wird in seine Liste von Ferienhäusern aufgenommen.
+
+==== Eventmanager
+[horizontal]
+1.1.1:: Der Eventmanager kann Events suchen (Button "Suchen").
+1.1.2:: Werden ihm die Suchergebnisse angezeigt, kann er das Event löschen (Button "Löschen") oder bearbeiten (Button "Bearbeiten").
+1.1.3:: Ist das Event bearbeitet, kann der Eventmanager das Event speichern, wodurch es im System aktualisiert wird.
+1.2.1:: Der Eventmanager kann neue Events hinzufügen (Button "Neues Event erstellen").
+1.2.2:: Der Eventmanager kann Bilder, eine Beschreibung und Ferienhäuser (bei großen Events) hinzufügen und das Event dann speichern (Button "Speichern").
+
+==== Admin
+[horizontal]
+1.1.1:: Der Admin kann Neuanmeldungen einsehen (Button "Neuanmeldung").
+1.1.2:: Er kann Neuanmeldungen entweder ablehnen (Button "Ablehnen") oder die Benutzer, Vermieter oder Eventmanager hinzufügen (Button "Hinzufügen").
+1.2.1:: Der Admin kann sich alle Mitglieder einer Benutzergruppe anzeigen lassen (Buttons "User", "Vermieter", "Eventmanager").
+1.2.2:: Der Admin kann Mitglieder rausfiltern und kann so deren Profile sehen. So kann er die Nutzer verwalten.
+
+== Datenmodell
+
+=== Überblick: Klassendiagramm
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/analysis/Klassendiagramm/Klassendiagramm2.jpg[height=620]
+
+=== Klassen und Enumerationen
+// See http://asciidoctor.org/docs/user-manual/#tables
+[options="header"]
+|===
+|Klasse/Enumeration |Beschreibung
+|Webportal         	|Verbindet Admin, Vermieter, Benutzer, Eventmitarbeiter, Ferienhäuser, Events
+|Admin			    |Verwaltet Webportal, Benutzer, Vermieter, Eventmitarbeiter
+|Vermieter		    |Verwaltet Ferienhäuser; Bestätigt Events, Buchungen, Reservierungen, Stornierungen
+|Benutzer		    |Bucht, Reserviert, Storniert
+|Eventmitarbeiter	|Verwaltet Events
+|Ferienhaus		    |Symbolisiert das zu vermietende Ferienhaus
+|Event		        |Wird Ferienhäusern zugeordnet; Evtl. Bestandteil einer Buchung
+|Reservierung		|Verbindung zw. Benutzer und Ferienhaus zum Reservieren
+|Buchung		    |Verbindung zw. Benutzer und Ferienhaus zum Buchen
+|Stornierung		|Verbindung zw. Benutzer und Ferienhaus (mit Verweis auf Buchung) zum Stornieren
+|Status			    |Status der Reservierung, Buchung, Stornierung
+|Rechnung		    |Bestätigung der Reservierung, Buchung, Stornierung
+|===
+
+== Akzeptanztestfälle
+
+[options="header"]
+|===
+|Testfall-Nummer|Titel 							                    |Beschreibung
+| #1  			|*Testfall Administrator* 				            | Der Administrator erstellt mindestens zwei Vermieter und mindestens zwei Eventmitarbeiter. Um die Funktion des Löschens zu testen, löscht er jeweils einen der beiden daraufhin wieder.
+| #2 		    |*Testfall Häuser erstellen durch Vermieter* 		|Der Vermieter wurde bereits durch den Administrator erstellt und erstellt nun selbst mindestens zwei Ferienhäuser. Um die Funktion des Bearbeitens der Hausdetails zu testen, wird von mindestens einem Haus ein Detail geändert. Hier wird die Löschfunktion ebenfalls getestet, indem eines der Häuser gelöscht wird.
+| #3  	        |*Testfall Event erstellen durch Eventmitarbeiter*  |Der Eventmitarbeiter wurde bereits von dem Administrator erstellt. Der Mitarbeiter erstellt nun mindestens zwei kleines und ein großes Event und weist diese verschiedenen Ferienhäusern zu. Auch hier wird wieder mindestens ein Detail des Events verändert und jeweils ein Event gelöscht.
+| #4    	    |*Testfall Konto erstellen durch Benutzer*  		    |Der Benutzer erstellt sich ein eigenes Konto, das von dem Administrator bestätigt wird.
+| #5            |*Testfall Events bestätigen*                       |Der Vermieter meldet sich erneut an und sollte einen Hinweis darauf bekommen, dass neue Events seinen Häusern zugewiesen wurden. Nun bestätigt er diese oder lehnt sie ab.
+| #6  			|*Testfall Buchung* 					            |Ein Benutzer meldet sich auf seinem Konto an und findet ein Haus mit passendem Event, das er erst reserviert. Nun bestätigt der Vermieter des Hauses diese Reservierung, die anschließend vom Benutzer in eine Buchung umgewandelt wird. Ein Benutzer reserviert daraufhin ein weiteres Ferienhaus. Diese Reservierung wird vom Benutzer verworfen. Schließlich bucht ein Benutzer ein Ferienhaus. Dies wird ebenfalls vom Vermieter verworfen. Hier wird ebenfalls die entstandene Rechnung überprüft.
+| #7  			|*Testfall Warenkorb* 					            |Ein Benutzer bucht ein Ferienhaus und ein dazugehöriges Event. Bevor die Buchung beendet wird, wird der Warenkorb überprüft.
+| #8  			|*Testfall Stornierung* 				            |Ein gebuchtes Ferienhaus wird vom Benutzer storniert. Ein weiteres gebuchtes Ferienhaus wird vom Vermieter storniert. Hier wird ebenfalls die entstandene Rechnung überprüft.
+| #9  			|*Testfall Häuserübersicht Vermieter* 		    	|Nach einigen Reservierungen, Buchungen und Stornierungen von verschiedenen Ferienhäusern, wird die Häuserübersicht des Vermieters über seine gebuchten, reservierten und stornierten Häuser überprüft.
+| #10  			|*Testfall Miethistory* 				            |Nachdem eine Buchung erfolgreich abgeschlossen wurde und zwei fehlgeschlagen sind, existiert nun eine Miethistory, die in diesem Fall auf Korrektheit überprüft wird.
+| #11 			|*Testfall Konto löschen* 				            |Nun wird der Benutzer durch den Administrator gelöscht, um auch diese Anwendung zu überprüfen.
+| #12 			|*Testfall Finanzübersicht* 				        |Ein Vermieter meldet sich auf seinem Konto an, nachdem mehrere Transaktionen stattgefunden haben. Nun kann die Finanzübersicht überprüft werden.
+| #13 			|*Testfall doppelte Buchung*  				        |Ein Benutzer möchte ein Haus für einen Zeitraum buchen, indem schon eine Reservierung eines anderen Benutzers vorliegt.
+| #14 			|*Testfall kurzfristige Reservierung* 		        |Ein Benutzer versucht ein Ferienhaus für die kommende Woche zu reservieren und nicht direkt zu buchen.
+| #15 			|*Testfall verspätete Anzahlung*  			        |Ein Benutzer hat ein Haus gebucht, tätigt jedoch keine Anzahlung innerhalb von 7 Tagen.
+|===
+ 
+
+//Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
+//Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
+
+== Glossar
+
+[options="header"]
+|===
+|Begriff                |Beschreibung
+|Entwickler             |Gruppe 20 des SWP
+|Kunde                  |Auftraggeber (Tutor)
+|Benutzer               |Kunden der Ferienhausvermietung
+|Vermieter              |Vermieter der Ferienhäuser
+|Eventmanager           |Verwalter der Events für Ferienhäuser
+|Administrator (Admin)  |Verwalter der Benutzer, Vermieter, Eventmanager
+|User                   |Alle Nutzer der Webseite
+|===
+
+

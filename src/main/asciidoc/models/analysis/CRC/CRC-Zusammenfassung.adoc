@@ -1,0 +1,132 @@
+
+[cols="60,60"]
+|===
+|Webportal |
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+||Vermietung
+||Eventmitarbeiter
+||Benutzer
+||Ferienhaus
+||
+|Attribute:|
+||
+|
+|===
+
+
+[cols="60,60"]
+|===
+|Ferienhaus|
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+||Event
+||Vermieter
+||Benutzer
+||Admin
+||
+|Attribute:|
+||
+|Ort|Bilder
+|Beschreibung|Miethistorie
+|Kosten|
+|===
+
+
+[cols="60,60"]
+|===
+|Benutzer    |
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+|buchen     | Ferienhaus
+|registrieren  |
+|reservieren |
+|stornieren  |
+||
+|Attribute:|
+||
+|ID|Vorname
+|Nachname|Username
+|E-mail Adresse|
+
+|===
+
+[cols="60,60"]
+|===
+|Vermieter|
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+|Buchung bearbeiten |Ferienhaus
+|hinzufügen von Häusern| Event
+|bearbeiten von Häusern|Buchung
+|löschen von Häusern|
+|bestätigen von Events|
+|löschen von Events|
+||
+|Attribute:|
+||
+|ID|Vorname
+|Nachname|Username
+|E-mail Adresse|
+|===
+
+
+
+
+[cols="60,60"]
+|===
+|Eventmitarbeiter|
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+|erstellen von Events| Event
+|löschen von Events | Admin
+|bearbeiten von Events|Ferienhäuser
+||
+|Attribute:|
+||
+|ID|Vorname
+|Nachname|Username
+|E-mail Adresse|
+|===
+
+[cols="60,60"]
+|===
+|Event |
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+||Eventmitarbeiter
+||Ferienhaus
+||
+|Attribute:|
+||
+|Name
+|Ort
+|Zeit|
+|===
+
+
+[cols="60,60"]
+|===
+|Admin |
+
+
+|Verantwortungsgebiet: |Mithelfer:
+||
+|freischalten von Benutzer|Benutzer
+|löschen von Benutzer/Vermieter/Eventmitarbeiter|Eventmitarbeiter
+|verwalten vom Webportal|Webportal
+|erstellen von Vermieter/Eventmitarbeiter|Vermieter
+||
+|Attribute:|
+||
+|ID|Vorname
+|Nachname|Username
+|E-mail Adresse|
+
+|===

@@ -1,0 +1,138 @@
+= Anwenderdokumentation
+:toc: left
+:toc-title: Inhaltsverzeichnis
+:numbered:
+
+== Einführung
+Diese Anwenderdokumentation soll den Umgang mit der gegebenen Anwendung vereinfach und erklären. Sie soll aufkommende Fragen beantworten und helfen, sicher durch die Anwendung zu navigieren.
+
+
+== Anwendung Allgemein
+
+=== Registrierung
+Die Registrierung ist direkt aufgeteilt nach den unterschiedlichen Rollen, die es in der Anwendung gibt. So hat der Benutzer direkt die Möglichkeit zu entscheiden, welche Rolle er in der Anwendung belegen möchte.
+Besonderheiten bei der Registrierung sind, dass nur der <<Mieter>> sich direkt nach der Registrierung mit seinen Zugangsdaten einloggen kann. <<Vermieter>> und <<Eventmanager>> müssen darauf warten, dass sie vom <<Administrator>> freigeschaltet werden.
+Eine weitere Besonderheit ist bei der Registrierung des Eventmanagers zu finden, er gibt als einziger eine Firma mit an.
+
+=== Einloggen
+Das Login funktioniert (evtl. nach erfolgter Freischaltung) mit der angegebenen Email-Adresse und dem gewählten Passwort.
+
+=== Events & Ferienhäuser
+Jeder Benutzer kann sich eine Übersicht der verfügbaren Events und Ferienhäuser anzeigen lassen.
+
+=== Status einer Buchung
+Eine Buchung kann einen der folgenden Status haben:
+
+* Reserviert
+* Offen
+* Gebucht
+* Bezahlt
+* Storniert
+* Abgeschlossen
+
+=== Fristen
+
+Je nach <<Status einer Buchung>> sind unterschiedliche Fristen einzuhalten.
+
+*Reserviert*
+
+Eine Reservierung muss mehr als 30 Tage vor dem ausgewählten Zeitraum (siehe <<Buchen und Reservieren>>) in eine Buchung umgewandelt werden. Passiert dies nicht, wird die Reservierung storniert.
+Dies impliziert, dass ein Haus nicht reserviert werden kann, wenn es nicht mehr als 30 Tage bis zum ausgewählten Zeitraum sind.
+
+*Offen*
+
+Eine offene Buchung, die mehr als 7 Tage nicht angezahlt wurde, wird storniert. Wird eine offene Buchung nicht fristgemäß storniert, ist die Anzahlung fällig.
+
+*Gebucht*
+
+Eine angezahlte Buchung, die zu Beginn des ausgewählten Zeitraums (siehe <<Buchen und Reservieren>>) nicht ganz bezahlt wurde, wird storniert. Die Anzahlung wird einbehalten.
+
+*Bezahlt*
+
+Eine Buchung, die zu Beginn des ausgewählten Zeitraums (siehe <<Buchen und Reservieren>>) ganz bezahlt wurde, bekommt den Status "Abgeschlossen".
+
+*Storniert*
+
+Eine Buchung muss mehr als 7 Tage vor Beginn des ausgewählten Zeitraums (siehe <<Buchen und Reservieren>>) storniert werden. Ansonsten wird die Anzahlung einbehalten.
+
+=== FAQ
+Die FAQ stellen eine komprimierte Version dieser Anwenderdokumentation dar und behandelt nur die Abläufe, die entweder nicht intuitiv oder ausführlich genug beschrieben sind.
+
+
+== Mieter
+
+=== Verfügbare Ferienhäuser
+Für die Suche nach verfügbaren Ferienhäusern, müssen ein Zeitraum und eine Anzahl von Gästen angegeben werden.
+Zusätzlich gibt es die Möglichkeit die Häuser nach bestimmten Kriterien zu Filtern. Danach werden die Häuser, die diesen Kriterien entsprechen, nach Verfügbarkeit aufgeschlüsselt.
+
+=== Buchen und Reservieren
+Buchen ist grundsätzlich nur über <<Verfügbare Ferienhäuser>> möglich. Nachdem ein verfügbares Ferienhaus ausgewählt wurde, gibt es, sofern die Fristen eingehalten werden, die Möglichkeit das Haus entweder für den bei der Suche ausgewählten Zeitraum zu reservieren (-> Status "Reserviert") oder zu buchen (-> Status "Offen").
+Wenn das Haus reserviert wurde, hat der Mieter nun die Möglichkeit, die Reservierung innerhalb der <<Fristen>> in eine Buchung umzuwandeln (-> Status "Offen").
+Wenn das Haus gebucht wurde, hat der Mieter die Möglichkeit, die Buchung innerhalb der <<Fristen>> anzuzahlen (10% des Gesamtpreises, -> Status "Gebucht") oder direkt ganz zu zahlen (-> Status "Bezahlt").
+Eine angezahlte Buchung kann zu einem späteren Zeitpunkt ganz gezahlt werden.
+
+Eine Buchung kann zu jedem Zeitpunkt storniert werden (-> Status "Storniert"). Wenn jedoch die <<Fristen>> nicht eingehalten werden, wird die Anzahlung vom Vermieter einbehalten.
+
+Wurde eine Buchung fristgemäß ausgeführt, ist sie ab Beginn des ausgewählten Zeitraums nicht mehr zu stornieren (-> Status "Abgeschlossen").
+
+=== Events buchen
+Während des Buchvorgangs hat der Mieter die Möglichkeit Events zur Buchung oder Reservierung hinzuzufügen. Diese werden dann automatisch mit dem Haus zusammen gebucht.
+
+=== Buchungsübersicht
+Unter der Buchungsübersicht findet der Mieter alle seine Buchungen und kann dort auf einen Blick den <<Status einer Buchung>>, den Gesamtpreis und den bereits gezahlten Anteil einer jeden Buchung sehen.
+Wenn der Mieter nun eine Buchung auswählt, um sich die Details genauer anzusehen, bekommt der Mieter eine Übersicht, die die gesamte Buchung zusammenfasst inklusive der Events.
+Zusätzlich sieht der Mieter seine Optionen, wie er weiterhin mit der Buchung verfahren kann. Abgesehen von der Option, die Buchung in seinen Kalender einzufügen ist dies jeweils abhängig vom <<Status einer Buchung>>.
+
+=== Wunschliste
+Sollte ein Haus nicht verfügbar sein, gibt es die Möglichkeit das Haus für den bei der Suche ausgewählten Zeitraum auf eine Wunschliste zu setzen. Sollte das Haus nun wieder verfügbar werden, kann der Mieter es direkt von der Wunschliste aus <<Buchen und Reservieren>>.
+
+
+== Vermieter
+
+=== Häuser erstellen
+Der Vermieter hat die Möglichkeit neue Häuser zu erstellen. Hierzu füllt er das entsprechende Formular aus. Wurde das Formular korrekt ausgefüllt, steht das Haus dem <<Mieter>> zum <<Buchen und Reservieren>> bereit.
+
+=== Häuser bearbeiten
+Der Vermieter hat die Möglichkeit seine bisherigen Häuser zu bearbeiten und zu löschen. Wenn er ein Haus bearbeitet, werden die entsprechenden Details geändert. Bestehende Buchungen sind von den Änderungen nicht betroffen.
+Wird ein Haus gelöscht, werden alle nötigen Buchungen storniert und jede Erwähnung des gelöschten Hauses wird mit dem Hinweis versehen, dass das betroffene Objekt gelöscht wurde.
+
+=== Häuser Detailseite
+Jedes Haus hat eine Detailseite, die für den Vermieter spezielle Möglichkeiten zur Verwaltung seines Ferienhauses gibt. Dazu gehört <<Häuser bearbeiten>>, <<Events bestätigen>> und <<Buchungen verwalten>>.
+Außerdem werden alle Buchungen, die es zu dem jeweiligen Haus gibt in einem Kalender aufgelistet und stellt somit die Miethistorie des Hauses dar.
+
+=== Events bestätigen
+Da beim <<Events erstellen>> jedes Event zu passenden Ferienhäusern hinzugefügt wird und dies vom Vermieter abgesegnet werden muss, hat der Vermieter  auf der <<Häuser Detailseite>> die Möglichkeit Events für sein Haus zuzulassen oder abzulehnen.
+Zugelassene Events können dann beim <<Buchen und Reservieren>> zur Buchung hinzugefügt werden.
+
+=== Buchungen verwalten
+Der Kalender auf der <<Häuser Detailseite>>, der die Miethistorie darstellt, ist gefüllt mit allen Buchungen des jeweiligen Hauses. Klickt der Vermieter einen der Einträge an, wird er auf eine Detailseite der Buchung weitergeleitet.
+Neben allen nötigen Informationen zur Buchung erhält der Vermieter hier die Möglichkeit die Buchung zu stornieren.
+
+=== Statistik
+Jeder Vermieter erhält eine ausführliche Statistik über derzeitige Buchungen, alle Stornierungen und alle Finanzen.
+Derzeitige Buchungen zeigt dem Vermieter alle Buchungen an, die weder Status "Storniert" noch Status "Abgeschlossen" sind. Alle Stornierungen, egal wann und von wem sie storniert wurden, werden unter Stornierungen aufgelistet.
+Die Finanzübersicht schlüsselt alle Einnahmen eines Vermieters nach dem <<Status einer Buchung>> auf.
+
+
+== Eventmanager
+
+=== Events erstellen
+Der Eventmanager hat die Möglichkeit entweder einmalige Events oder wöchentliche Events zu erstellen. Einmalige Events bekommen ein konkretes Datum zugeordnet, wohingegen wöchentliche Events einen Wochentag zugeordnet bekommen.
+
+=== Events bearbeiten
+Der Eventmanager hat die Möglichkeit seine bisherigen Events zu bearbeiten und zu löschen. Wenn er ein Event bearbeitet, werden die entsprechenden Details geändert. Bestehende Buchungen sind von den Änderungen nicht betroffen.
+Wird ein Haus gelöscht, wird es aus allen nötigen Buchungen gelöscht.
+
+=== Statistik
+Jeder Eventmanager erhält eine ausführliche Statistik über seine Events. Diese zeigt ihm, wie viele Besucher welches Event gebucht haben und wie viel er an dem jeweiligen Event verdient.
+
+== Administrator
+
+=== Registrierungen
+Registrieren sich ein Vermieter oder ein Eventmanager, wird dem Administrator hier die entsprechende Registrierung angezeigt. Er entscheidet, ob die Registrierung akzeptiert oder gelöscht wird.
+
+=== Benutzer
+Der Administrator hat die Möglichkeit sich die Benutzer aufgeschlüsselt nach den Rollen <<Mieter>>, <<Vermieter>> und <<Eventmanager>> anzeigen zu lassen. Hier kann er auch einzelne Benutzer löschen.
+
+=== Buchungen
+Der Administrator kann alle erstellten Buchungen sehen. Er sieht den <<Mieter>>, den <<Status einer Buchung>>, den Preis und was bezahlt wurde.

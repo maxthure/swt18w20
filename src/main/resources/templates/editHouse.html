@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script>
+        $(document).ready(function() {
+            $('#postcode').keyup(function() {
+                if ($(this).val().length > 4) {
+                    var ort = $('#city');
+                    $.getJSON('http://www.geonames.org/postalCodeLookupJSON?&country=de&callback=?', {postalcode: this.value }, function(response) {
+                        if (response && response.postalcodes.length && response.postalcodes[0].placeName) {
+                            ort.val(response.postalcodes[0].placeName);
+                        }
+                    })
+                } else {
+                    $('#city').val('');
+                }
+            });
+        });
+    </script>
+
+    <title th:text="#{editHouse.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{editHouse.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form method="post" role="form" class="ui form" id="houseEditForm" th:action="@{/editHouse}" th:object="${houseEditForm}" enctype="multipart/form-data">
+
+        <h3 class="ui dividing header"></h3>
+
+        <input type="hidden" id="houseID" name="houseID" th:value="${hid}"/>
+        <input type="hidden" id="currentHouse" name="currentHouse" th:value="${currentHouse}"/>
+
+        <div class="field">
+            <label for="nameHouse" th:text="#{house.name}">!!!ERROR!!!</label>
+            <input id="nameHouse" name="nameHouse" th:value="${currentHouse.nameHouse}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('nameHouse')}" th:errors="*{nameHouse}">
+                <p>HouseName must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="beds" th:text="#{house.beds}">!!!ERROR!!!</label>
+            <input style="width:10em" id="beds" name="beds" th:value="${currentHouse.beds}" th:errorclass="fieldError" type="number" min="0" step="1" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('beds')}" th:errors="*{beds}">
+                <p>Beds must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+           <label for="description" th:text="#{house.description}">!!!ERROR!!!</label>
+            <input id="description" name="description" th:value="${currentHouse.description}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                <p>Description must not be empty.</p>
+            </div>
+
+        </div>
+
+        <div class="required field">
+            <label for="street" th:text="#{user.street}">!!!ERROR!!!</label>
+            <input id="street" name="street" th:value="${currentHouse.address[0]}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+                <p>Street must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="postcode" th:text="#{user.postcode}">!!!ERROR!!!</label>
+            <input id="postcode" name="postcode" value="" th:value="${currentHouse.address[1]}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">
+                <p>Postcode must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="city" th:text="#{user.city}">!!!ERROR!!!</label>
+            <input id="city" name="city" value="" th:value="${currentHouse.address[2]}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                <p>City must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+           <label for="rent" th:text="#{house.rent}">!!!ERROR!!!</label>
+            <input placeholder="EUR" style="width:10em" id="rent" name="rent" th:value="${currentHouse.rent}" th:errorclass="fieldError" type="number" min="0" step="0.01" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('rent')}" th:errors="*{rent}">
+                <p>Price must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="minStay" th:text="#{house.minStay}">!!!ERROR!!!</label>
+            <input style="width:10em" id="minStay" name="minStay" th:value="${currentHouse.minStay}" th:errorclass="fieldError" type="number" min="0" step="1" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('minStay')}" th:errors="*{minStay}">
+                <p>MinStay must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="maxStay" th:text="#{house.maxStay}">!!!ERROR!!!</label>
+            <input style="width:10em" id="maxStay" name="maxStay" th:value="${currentHouse.maxStay}" th:errorclass="fieldError" type="number" min="0" step="1" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('maxStay')}" th:errors="*{maxStay}">
+                <p>MaxStay must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="image" th:text="#{house.image}">!!!ERROR!!!</label>
+            <input type="file" accept="image/*" id="image" name="image" th:field="*{image}" th:errorclass="fieldError" /><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+                <p>Image must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="ui form">
+            <div class="seven fields">
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="kitchen" name="kitchen" value="true" th:checked="${currentHouse.features.get('KITCHEN')}">
+                        <label for="kitchen" th:text="#{feature.kitchen}">Kitchen</label>
+                        <input type="hidden" name="kitchen" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="ac" name="ac" value="true" th:checked="${currentHouse.features.get('AC')}">
+                        <label for="ac" th:text="#{feature.ac}">AC</label>
+                        <input type="hidden" name="ac" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="washingMachine" name="washingMachine" value="true" th:checked="${currentHouse.features.get('WASHING_MACHINE')}">
+                        <label for="washingMachine" th:text="#{feature.washing_machine}">Washing Machine</label>
+                        <input type="hidden" name="washingMachine" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="tumbleDryer" name="tumbleDryer" value="true" th:checked="${currentHouse.features.get('TUMBLE_DRYER')}">
+                        <label for="tumbleDryer" th:text="#{feature.tumble_dryer}">Tumble Dryer</label>
+                        <input type="hidden" name="tumbleDryer" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="wifi" name="wifi" value="true" th:checked="${currentHouse.features.get('WIFI')}">
+                        <label for="wifi" th:text="#{feature.wifi}">WIFI</label>
+                        <input type="hidden" name="wifi" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="babyCrib" name="babyCrib" value="true" th:checked="${currentHouse.features.get('BABY_CRIB')}">
+                        <label for="babyCrib" th:text="#{feature.baby_crib}">Baby Crib</label>
+                        <input type="hidden" name="babyCrib" value="false">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="television" name="television" value="true" th:checked="${currentHouse.features.get('TELEVISION')}">
+                        <label for="television" th:text="#{feature.television}">Television</label>
+                        <input type="hidden" name="television" value="false">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" name= "edit" class="ui button" th:text="#{house.save}">!!!ERROR!!!</button>
+        <button type="submit" name= "delete" class="ui button" th:text="#{general.delete}">!!!ERROR!!!</button>
+
+    </form>
+</div>
+</body>
+</html>

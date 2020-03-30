@@ -1,0 +1,15 @@
+[cols="50,50"]
+|===
+|Admin |
+
+|freischalten
+|Urlauber
+
+|löschen
+|Urlauber,Vermieter,Eventmitarbeiter
+
+|erstellt
+|Vermieter,Eventmitarbeiter
+|
+|===
+

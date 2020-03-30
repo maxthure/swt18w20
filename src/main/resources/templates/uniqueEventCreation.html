@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <script th:src="@{/webjars/semantic-ui-calendar/dist/calendar.min.js}"
+            src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+    <link th:href="@{/webjars/semantic-ui-calendar/dist/calendar.min.css}"
+          href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            /*[# th:switch="#{general.language.short}"]*/
+                /*[# th:case="'de'"]*/
+                    var day = ['S', 'M', 'D', 'M', 'D', 'F', 'S'];
+                    var month = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+                /*[/]*/
+                /*[# th:case="*"]*/
+                    var day = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+                    var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                /*[/]*/
+            /*[/]*/
+
+            var today = new Date();
+            $('#dates').calendar({
+                firstDayOfWeek: 1,
+                text: {
+                    days: day,
+                    months: month
+                },
+                formatter: {
+                    date: function (date) {
+                        if (!date) return '';
+                        var day = date.getDate();
+                        document.getElementById('start_day').value = day;
+                        var month = date.getMonth() + 1;
+                        document.getElementById('start_month').value = month;
+                        var year = date.getFullYear();
+                        document.getElementById('start_year').value = year;
+                        return day + '.' + month + '.' + year;
+                    }
+                },
+                minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()+1),
+                type: 'date'
+            });
+        });
+        /*]]>*/
+    </script>
+
+    <title th:text="#{event.createUnique}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{event.createUnique}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form method="post" role="form" class="ui form" id="uEventForm" th:action="@{/uniqueEventCreation}" th:object="${uEventForm}">
+
+        <h3 class="ui dividing header"></h3>
+
+        <div class="required field">
+            <label for="name" th:text="#{event.name}">!!!ERROR!!!</label>
+            <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                <p>Name must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="price" th:text="#{event.price}">!!!ERROR!!!</label>
+            <input placeholder="EUR" style="width:10em" id="price" name="price" th:field="*{price}" th:errorclass="fieldError" type="number" min="0" step="0.01" required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">
+                <p>Price must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="place" th:text="#{event.place}">!!!ERROR!!!</label>
+            <input id="place" name="place" th:field="*{place}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('place')}" th:errors="*{place}">
+                <p>Place must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="description" th:text="#{event.description}">!!!ERROR!!!</label>
+            <input id="description" name="description" th:field="*{description}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                <p>Description must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label th:text="#{event.date}">!!!ERROR!!!</label>
+            <div class="ui calendar" id="dates">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" th:placeholder="#{event.date}" required>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="start_day" th:field="*{day}">
+        <input type="hidden" id="start_month" th:field="*{month}">
+        <input type="hidden" id="start_year" th:field="*{year}">
+
+        <div class="required field">
+            <label for="hours" th:text="#{event.time}">!!!ERROR!!!</label>
+            <input placeholder="hh" style="width:5em" id="hours" name="hours" th:field="*{hours}" th:errorclass="fieldError" type="number" min="0" max="23" step="1" required="required"/> :
+            <input placeholder="mm" style="width:5em" id="minutes" name="minutes" th:field="*{minutes}" th:errorclass="fieldError" type="number" min="0" max="59" step="1" required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('hours')}" th:errors="*{hours}">
+                <p>Price must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="houses" th:text="#{houses.title}">!!!ERROR!!!</label>
+            <select id="houses" name="houses" multiple th:remove="all-but-first" th:field="*{houses}" required>
+                <option th:each=" house : ${houses}"  th:value="${house.id}" th:text="${house.nameHouse}">!!!ERROR!!!</option>
+            </select>
+        </div>
+
+        <button type="submit" class="ui button" th:text="#{event.save}">!!!ERROR!!!</button>
+    </form>
+</div>
+</body>
+</html>

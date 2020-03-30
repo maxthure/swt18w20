@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/momentjs/moment.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <script th:src="@{/webjars/fullcalendar/fullcalendar.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script th:src="@{/webjars/fullcalendar/locale-all.js}"></script>
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.print.min.css}"
+          href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel='stylesheet'>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function(){
+            var event3 = [];
+
+            /*[# th:each="n : ${fill}"]*/
+                /*[# th:switch="${instance}"]*/
+                    /*[# th:case="'landlord'"]*/
+                        /*[# th:switch="${{n.status}}"]*/
+                            /*[# th:case="'RESERVATION'"]*/
+                                event3.push({title: /*[[${n.userAccount.firstname + ' ' + n.userAccount.lastname}]]*/ '1', url: /*[[@{/detailBooking/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#13af25'});
+                            /*[/]*/
+                            /*[# th:case="'OPEN'"]*/
+                                event3.push({title: /*[[${n.userAccount.firstname + ' ' + n.userAccount.lastname}]]*/ '1', url: /*[[@{/detailBooking/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#a872ff'});
+                            /*[/]*/
+                            /*[# th:case="'BOOKING'"]*/
+                                event3.push({title: /*[[${n.userAccount.firstname + ' ' + n.userAccount.lastname}]]*/ '1', url: /*[[@{/detailBooking/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#5f28b7'});
+                            /*[/]*/
+                            /*[# th:case="'PAID'"]*/
+                                event3.push({title: /*[[${n.userAccount.firstname + ' ' + n.userAccount.lastname}]]*/ '1', url: /*[[@{/detailBooking/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#331168'});
+                            /*[/]*/
+                            /*[# th:case="'COMPLETED'"]*/
+                                event3.push({title: /*[[${n.userAccount.firstname + ' ' + n.userAccount.lastname}]]*/ '1', url: /*[[@{/detailBooking/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#d3d3d3'});
+                            /*[/]*/
+                        /*[/]*/
+                    /*[/]*/
+                    /*[# th:case="*"]*/
+                        /*[# th:switch="${{n.status}}"]*/
+                            /*[# th:case="'RESERVATION'"]*/
+                                event3.push({title: /*[[#{availability.reserved}]]*/' ', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#115104'});
+                            /*[/]*/
+                            /*[# th:case="'OPEN'"]*/
+                                event3.push({title: /*[[#{availability.booked}]]*/' ', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#a30e16'});
+                            /*[/]*/
+                            /*[# th:case="'BOOKING'"]*/
+                                event3.push({title: /*[[#{availability.booked}]]*/' ', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#a30e16'});
+                            /*[/]*/
+                            /*[# th:case="'PAID'"]*/
+                                event3.push({title: /*[[#{availability.booked}]]*/' ', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#a30e16'});
+                            /*[/]*/
+                            /*[# th:case="'COMPLETED'"]*/
+                                event3.push({title: /*[[#{availability.booked}]]*/' ', start: /*[[${n.firstDate}]]*/ '2018-11-1', end: /*[[${n.lastDate}]]*/ '2018-11-2', color: '#d3d3d3'});
+                            /*[/]*/
+                        /*[/]*/
+                    /*[/]*/
+                /*[/]*/
+            /*[/]*/
+            $('#calendar').fullCalendar({
+                locale: /*[[#{general.language.short}]]*/'en',
+                fixedWeekCount: false,
+                aspectRatio: 1.8,
+                header: {
+                    left: 'today',
+                    center: 'title',
+                    right: 'prev,next'
+                },
+                /*[# th:switch="${instance}"]*/
+                    /*[# th:case="'tenant'"]*/
+                        defaultDate: /*[[${yearStart}+'-'+${#numbers.formatDecimal(monthStart,2,0)}+'-'+${#numbers.formatDecimal(dayStart,2,0)}]]*/ '2018-11-01',
+                    /*[/]*/
+                    /*[# th:case="*"]*/
+                        defaultDate: Date.now(),
+                    /*[/]*/
+                /*[/]*/
+                eventLimit: true, // allow "more" link when too many events
+                events: event3,
+                timeFormat: 'HH:mm'
+            });
+        });
+        /*]]>*/
+
+    </script>
+
+    <title th:text="#{detail.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<header>
+    <h1 th:text="#{detail.title}">!!!ERROR!!!</h1>
+</header>
+
+<nav th:include="navigation :: navigation"></nav>
+
+<div class ="ui container">
+    <div class="ui items">
+
+        <div class="item">
+
+            <div class="image">
+                <img th:src="@{/uploads/{image}(image=${house.image})}"/>
+            </div>
+
+            <div class="content">
+                <span class="header" th:text="${house.nameHouse}">!!!ERROR!!!</span>
+                <div>
+                    <span th:text="${house.description}">description</span><br/>
+                    <div th:switch="${instance}">
+                        <div th:case="'tenant'">
+                            <span th:text="#{user.postcode} + ': ' + ${house.address[1]}">description</span><br/>
+                            <span th:text="${{house.price}} + ' ' + #{detail.perNight}">!!!ERROR!!!</span><br/>
+                            <span  th:text="${{total}} + ' total'">!!!ERROR!!!</span>
+                        </div>
+                        <div th:case="'landlord'">
+                            <span th:text="${house.address[0]+', '+house.address[1]+', '+house.address[2]}">description</span><br/>
+                            <span th:text="${{house.price}} + ' ' + #{detail.perNight}">!!!ERROR!!!</span><br/>
+                        </div>
+                        <div th:case="*">
+                            <span th:text="#{user.postcode} + ': ' + ${house.address[1]}">description</span><br/>
+                            <span th:text="${{house.price}} + ' ' + #{detail.perNight}">!!!ERROR!!!</span><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right floated content">
+                <div class="ui bulleted list">
+                    <div class="item" th:each="feature : ${features}" th:if="${feature.value}">
+                        <span th:text="#{'feature.'+${#strings.toLowerCase(feature.key)}}">WIFI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:switch="${instance}">
+            <div th:case="'tenant'">
+                <div class="booking">
+                    <form class="ui form" method="post" th:action="@{/extras}" th:object="${form}">
+                        <input type="hidden" name="house" th:value="${house.id}"/>
+                        <input type="hidden" name="yearStart" th:value="${yearStart}">
+                        <input type="hidden" name="monthStart" th:value="${monthStart}">
+                        <input type="hidden" name="dayStart" th:value="${dayStart}">
+                        <input type="hidden" name="yearEnd" th:value="${yearEnd}">
+                        <input type="hidden" name="monthEnd" th:value="${monthEnd}">
+                        <input type="hidden" name="dayEnd" th:value="${dayEnd}">
+
+                        <div class="field">
+                            <label for="type" th:text="#{detail.type}">!!!ERROR!!!</label>
+                            <select id="type" name="type">
+                                <option value="booking" th:text="#{detail.type.booking}">!!!ERROR!!!</option>
+                                <div th:switch="${reservation}">
+                                    <div th:case="true">
+                                        <option value="reservate" th:text="#{detail.type.reservate}">!!!ERROR!!!</option>
+                                    </div>
+                                    <div th:case="false">
+                                        <option value="reservate" th:text="#{detail.type.reservate}" disabled>!!!ERROR!!!</option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+
+                        <div class="content">
+                            <a class="header" th:text="#{availability.dates}">!!!ERROR!!!</a>
+                            <div>
+                                <span th:text="#{detail.date.from}+' '+${dayStart}+'.'+${monthStart}+'.'+${yearStart}+' '+#{detail.date.to}+' '+${dayEnd}+'.'+${monthEnd}+'.'+${yearEnd}">!!!ERROR!!!</span><br/>
+                            </div>
+                            <button type="submit" class="ui labeled icon button">
+                                <i class="add to cart icon"></i><span th:text="#{detail.choose}">!!!ERROR!!!</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div th:case="'landlord'">
+
+
+                <form action="redirect" th:action="@{/house/{id}(id=${house.id})}">
+                    <button type="submit" class="ui button" th:text="#{general.change}">!!!ERROR!!!</button>
+                </form>
+
+                <div class="ui segment">
+                    <h2 th:text="#{events.title}">!!!ERROR!!!</h2>
+
+                    <label for="requestedEvents" th:text="#{event.requested}">!!!ERROR!!!</label>
+                    <table class="ui fixed single line celled table" id="requestedEvents">
+                        <thead>
+                        <tr>
+                            <th th:text="#{event.name}">!!!ERROR!!!</th>
+                            <th th:text="#{event.description}">!!!ERROR!!!</th>
+                            <th th:text="#{event.type}">!!!ERROR!!!</th>
+                            <th th:text="#{event.price}">!!!ERROR!!!</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody th:remove="all-but-first">
+                        <tr th:each="eventR : ${house.requestedEvents}">
+                            <td th:text="${eventR.name}">!!!ERROR!!!</td>
+                            <td th:text="${eventR.description}">!!!ERROR!!!</td>
+                            <div th:switch="${{eventR.type}}">
+                                <td th:case="'UNIQUE'" th:text="#{event.unique}">!!!ERROR!!!</td>
+                                <td th:case="'WEEKLY'" th:text="#{event.weekly}">!!!ERROR!!!</td>
+                            </div>
+                            <td th:text="${{eventR.price}}">!!!ERROR!!!</td>
+                            <td>
+                                <form method="post" role="form" class="ui form" id="eventConfirmationForm_" th:action="@{/confirmEvent}" th:object="${eventConfirmationForm}">
+                                    <input type="hidden" id="houseID2_" name="houseID2" th:value="${house.id}"/>
+                                    <input type="hidden" id="eventID_" name="eventID" th:value="${eventR.id}"/>
+                                    <button type="submit" class="ui button" th:text="#{event.confirm}">!!!ERROR!!!</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" role="form" class="ui form" id="eventConfirmationForm__" th:action="@{/rejectEvent}" th:object="${eventConfirmationForm}">
+                                    <input type="hidden" id="houseID2__" name="houseID2" th:value="${house.id}"/>
+                                    <input type="hidden" id="eventID__" name="eventID" th:value="${eventR.id}"/>
+                                    <button type="submit" class="ui button" th:text="#{event.reject}">!!!ERROR!!!</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <label for="confirmedEvents" th:text="#{event.confirmed}">!!!ERROR!!!</label>
+                    <table class="ui fixed single line celled table" id="confirmedEvents">
+                        <thead>
+                        <tr>
+                            <th th:text="#{event.name}">!!!ERROR!!!</th>
+                            <th th:text="#{event.description}">!!!ERROR!!!</th>
+                            <th th:text="#{event.type}">!!!ERROR!!!</th>
+                            <th th:text="#{event.price}">!!!ERROR!!!</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody th:remove="all-but-first">
+                        <tr th:each="eventC : ${house.confirmedEvents}">
+                            <td th:text="${eventC.name}">!!!ERROR!!!</td>
+                            <td th:text="${eventC.description}">!!!ERROR!!!</td>
+                            <div th:switch="${{eventC.type}}">
+                                <td th:case="'UNIQUE'" th:text="#{event.unique}">!!!ERROR!!!</td>
+                                <td th:case="'WEEKLY'" th:text="#{event.weekly}">!!!ERROR!!!</td>
+                            </div>
+                            <td th:text="${{eventC.price}}">!!!ERROR!!!</td>
+                            <td>
+                                <form method="post" role="form" class="ui form" id="eventConfirmationForm" th:action="@{/removeEvent}" th:object="${eventConfirmationForm}">
+                                    <input type="hidden" id="houseID2" name="houseID2" th:value="${house.id}"/>
+                                    <input type="hidden" id="eventID" name="eventID" th:value="${eventC.id}"/>
+                                    <button type="submit" class="ui button" th:text="#{general.delete}">!!!ERROR!!!</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div th:case="'wishlist'">
+                <div class="booking">
+                    <form class="ui form" method="post" th:action="@{/houses/{id}/{dayStart}_{monthStart}_{yearStart}-{dayEnd}_{monthEnd}_{yearEnd}(id=${house.id},dayStart=${dayStart},monthStart=${monthStart},yearStart=${yearStart},dayEnd=${dayEnd},monthEnd=${monthEnd},yearEnd=${yearEnd})}" th:object="${form}">
+                        <input type="hidden" name="house" th:value="${house.id}"/>
+                        <input type="hidden" name="yearStart" th:value="${yearStart}">
+                        <input type="hidden" name="monthStart" th:value="${monthStart}">
+                        <input type="hidden" name="dayStart" th:value="${dayStart}">
+                        <input type="hidden" name="yearEnd" th:value="${yearEnd}">
+                        <input type="hidden" name="monthEnd" th:value="${monthEnd}">
+                        <input type="hidden" name="dayEnd" th:value="${dayEnd}">
+
+                        <div class="content">
+                            <a class="header" th:text="#{availability.dates}">!!!ERROR!!!</a>
+                            <div>
+                                <span th:text="#{detail.date.from}+' '+${dayStart}+'.'+${monthStart}+'.'+${yearStart}+' '+#{detail.date.to}+' '+${dayEnd}+'.'+${monthEnd}+'.'+${yearEnd}">!!!ERROR!!!</span><br/>
+                            </div>
+                            <button type="submit" name= "addToWishlist" class="ui button" th:text="#{availability.wishlist}">!!!ERROR!!!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div th:case="*"></div>
+        </div>
+        <div class="ui segment">
+            <div class="ui container">
+                <div class="ui grid">
+                    <div class="ui sixteen column">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

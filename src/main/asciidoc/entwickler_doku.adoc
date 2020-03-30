@@ -1,0 +1,188 @@
+= Entwicklerdokumentation
+:toc: left
+:toc-title: Inhaltsverzeichnis
+:numbered:
+
+== Einführung und Ziele
+
+=== Aufgabenstellung
+Gewünscht ist ein Webportal, was sich mit der Vermietung von Ferienhäusern im Raum in und um Dresden beschäftigen soll.
+Es soll die Möglichkeit geboten werden, sich Ferienhäuser anzuschauen nach erfolgreicher Registrierung für einen bestimmten Zeitraum zu mieten. Das Haus wird dabei durch den Ort, eine Beschreibung, ein paar Bilder und dem Vermieter repräsentiert. Benutzer können dabei das Haus für einen bestimmten Zeitraum (Minimum/Maximum kann der jeweilige Vermieter festlegen) für sich reservieren oder buchen, sofern dieses noch zur gewünschten Zeit frei ist. Beginnt der Urlaub bereits in einem Monat oder weniger, ist keine Reservierung mehr möglich, sondern nur noch die Buchung. Bei einer Buchung fällt eine Anzahlung an, die sich auf ca. 10% der Gesamtkosten des Urlaubs beläuft. Diese muss er dem Vermieter fristgerecht (innerhalb von 7 Werktagen vor Urlaubsbeginn) überweisen, der dann die Buchung bestätigt. Ansonsten verfällt die Reservierung und wird wieder frei. Weiterhin ist vorgesehen, dass der einmal gebuchte Urlaub storniert werden kann. Bis zu einer gewissen Frist, einige Tage vor Urlaubsbeginn, soll das kostenfrei sein, während nach Ablauf dieser Frist die Anzahlung vom Vermieter einbehalten werden kann.
+
+Es sind natürlich auch Vermieter vorhanden, die sich selbst aber nicht registrieren dürfen, sondern vom Administrator erstellt werden. Nach erfolgreichem Einloggen eines Vermieters hat dieser die Möglichkeit, seine Häuser zu verwalten, was im Wesentlichen bedeutet, neue Häuser im System einzutragen (die dann von anderen Nutzern eingesehen werden können), bestehende Häuser zu ändern oder zu löschen. Weiterhin muss er eine umfangreiche Übersicht über seine Häuser haben. Das beinhaltet eine Miethistorie, welche anzeigt, wer wann wie lange in dem Haus gelebt hat, eine Übersicht über aktuelle Buchungen und Reservierungen und eine Liste von Events. Der Vermieter hat somit die Möglichkeit, Buchungen und Reservierungen zu bestätigen oder zu verwerfen (wobei darauf zu achten ist, was passiert, wenn eine schon bezahlte Buchung rückgängig gemacht werden muss), Events zu bestätigen oder zu löschen und die Hausdetails zu verändern.
+
+Weiterhin soll das Portal mit einer bereits angedeuteten Eventfirma zusammenarbeiten, die sich ebenfalls in und um Dresden engagiert. Eventmitarbeiter haben daher ebenfalls einen Zugang zu dem System. Diese können nach erfolgreichem Einloggen Events erstellen, verändern oder löschen. Dabei unterscheidet man große einmalige Events, für die eine Reservierung nötig ist, und kleinere wöchentliche stattfindende Events, die kostenfrei besuchbar sind. Größere Events müssen beim Buchen des Urlaubes mit zu gebucht werden, was es nötig macht, dass diese Events an ein oder mehrere Häuser gebunden sind. Natürlich kommen nur jene Häuser in Frage, die relativ nah zu den Veranstaltungsort des Events sind. Ein Event wird durch den Namen, den Ort, die Zeit, in der es stattfindet, und den Preis (ggf. kostenlos) beschrieben. Wenn ein größeres Event abgebrochen wird, müssen den Urlaubern, die gebucht haben auch ihre Kosten zurückerstattet werden. Bevor Events aber an Häuser gebunden werden und somit den Benutzern sichtbar werden, muss das vom jeweiligen Vermieter bestätigt werden. Kleinere Events bedürfen auch einer Bestätigung, müssen aber nicht gebucht werden und dienen somit den Benutzern lediglich als Hinweis, wie sie ihren Urlaub verleben können.
+Als letztes wird ein Administratorzugang gebraucht, der das System verwalten soll. Im Wesentlichen bezieht sich das auf die Verwaltung von Mitgliedern, Löschen und Freischalten von Urlauberkonten und Erstellen und Löschen von Vermieter- und Eventmitgliederkonten.
+
+=== Qualitätsziele
+
+==== Gewährleistung der Sicherheit der User-Accounts
+Die Sicherheit der Accounts unserer Anwender liegt uns am Herzen. Um dies zu gewährleisten, sollte jedes Passwort aus Großbuchstaben, Kleinbuchstaben, Ziffern und Sonderzeichen bestehen.
+
+_Die Überprüfung der Sicherheit der Passwörter wurde als weniger wichtig eingestuft und somit hinten angestellt. Auf Grund von Zeitmangel konnte die Überprüfung nicht implementiert werden._
+
+==== Übersichtlichkeit des Portals
+Um ein optimales Nutzungserlebnis zu garantieren, ist eine übersichtliche Darstellung der relevanten Informationen auf einer Seite erforderlich. Nutzer sollten alle wichtigen Informationen auf einen Blick erfassen können. "Semantic UI" bietet hierfür bereits geeignete Lösungen zur Informationsvisualisierung (vorformatierte Karten, Tabellen, etc.). Ferner sollten stechende Farbkontraste und irritierende Layouts vermieden werden. 
+
+==== Einfache Bedienung des Portals
+Eine intuitive Benutzeroberfläche ist erforderlich, damit die Anwender mühelos durch das Portal navigieren können. Auch hier bietet "Semantic UI" geeignete Navigationslösungen wie (Dropdown-)Menüs, Tabs, etc. 
+
+==== Qualitativ hochwertige Ferienhausbilder
+Der erste Eindruck, den ein Reisender von einem Ferienhaus bekommt, ist bekanntlich der wichtigste. Daher sollten die von den Vermietern hochgeladenen Bidler der Ferienhäuser eine dementsprechende Auflösung haben und vor dem Upload auf dieses Kriterium überprüft werden.
+
+_Die Überprüfung der Qualität der Bilder konnte auf Grund von Zeitmangel nicht implementiert werden._
+
+==== Bequemer Zahlvorgang für Benutzer
+Um einen möglichst bequemen Zahlvorgang für Benutzer des Portals zu gewährleisten, sollten mehrere Zahlungsarten angeboten werden (z.B. Kreditkarte, Bankeinzug, PayPal, usw...)
+
+_Der aktuelle Bezahlvorgang ist so simpel angelegt, dass wir auf diese Auswahlmöglichkeiten verzichtet haben._
+
+== Randbedingungen
+
+=== Hardware-Vorgaben
+Unter den folgenden Bedingungen wurde die Anwendung getestet und funktioniert:
+
+* 1,3 GHz Intel Core i5
+* 4 GB 1600 Mhz DDR3
+* Intel HD Graphics 5000 1536 MB
+* macOS Mojave 10.14.1
+* Windows 10
+
+Unter den folgenden Bedingungen sollte die Anwendung funktionieren:
+
+* anderer Prozessor
+* besserer/mehr Arbeitsspeicher
+* neuere macOS Versionen
+* neuere Windows Versionen
+* neuere Ubuntu Versionen
+
+=== Software-Vorgaben
+Folgende Frameworks/Libraries/Dependencies werden benötigt:
+
+* Framework Salespoint - Version : 7.0.0.RELEASE
+* Template Engine Thymeleaf - Version : 3.0.9.RELEASE
+* Framework Spring - Version : 5.1.0.RELEASE
+* Build Tool Maven - Version : 3.3.9
+* Java - Version : 10
+
+=== Vorgaben zum Betrieb der Software
+Die Anwendung wurde mit folgenden Programmen betrieben:
+
+* IntelliJ IDEA (Ultimate Edition) - Version: 2018.2.5
+* Safari - Version: Version 12.0.1
+* Chrome - Version: 70.0.3538.102
+
+Die Anwendung sollte auch mit folgenden Programmen betrieben werden können:
+
+* jede IDE
+* jeder (neuere) Browser: Chrome. Safari, Firefox, ...
+
+== Kontextabgrenzung
+Obwohl die Website größtenteils von den Entwicklern selbst geschrieben wird, werden diverse Frameworks von außerhalb einbezogen. Zum einen das Salespoint Framework, welches diverse Funktionalitäten zu den Objekten Haus, Event und für die Administration liefert, zum anderen das Spring-Framework, welches sich um die Basisabläufe im Hintergrund, wie "Dependency-Injection", kümmert. Außerdem wird für die Gestaltung der Website auf Semantic UI zurückgegriffen.
+
+=== Fachlicher Kontext
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Kontextabgrenzung/Fachlicher_Kontext.jpg[100%,100%]
+
+=== Fremdsysteme
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Kontextabgrenzung/Fremdsysteme.jpg[100%,100%]
+
+
+
+== Lösungsstrategie
+*Usergruppen* +
+Es gibt vier Gruppen, die auf die Ferienhausvermietung zugreifen (Admin, Eventmanager, Vermieter, Mieter). Jede dieser Gruppen hat unterschiedliche Rechte im System und braucht unterschiedliche Funktionalitäten, um seine Aufgabe zu erfüllen.
+
+*Salespoint-Framework* +
+Wir haben uns dazu entschlossen für jede Usergruppe einen gesonderten Zugang zu schaffen, sodass es je nach Gruppe eine gesonderte Benutzeroberfläche gibt. Diese Unterscheidung gelingt uns dadurch, dass jede im System agierenden Person ein "UserAccount" aus dem Salespoint-Framework zugeordnet wird, welcher wiederum eine "Role" benötigt, über die man explizit Bereiche zugänglich machen kann.
+
+*Spring-Framework* +
+Zusätzlich wird jeder Benutzer, abgesehen vom Admin, einem benutzerspezifischen "Repository", das eine Klasse des Spring-Framewokrs erweitert, hinzugefügt, sodass er auch für andere Benutzer abrufbar ist. Dies ist zum Beispiel essenziell für die Aufgaben des Admins.
+Die Kontrolle der jeweiligen Benutzeroberflächen funktioniert mit der "@Controller"-Annotation, die uns das Spring-Framework zur Verfügung stellt. +
+Objekte, die von mehreren Benutzern gebraucht werden, entweder zum Bearbeiten, zur Anzeige oder lediglich zur Buchung, werden durch Klassen realisiert, die die Spring-Framework-Klasse "Product" erweitern.
+Diese Objekte werden einem objektspezifischen "Catalog", welcher eine Klasse des Spring-Frameworks erweitert, hinzugefügt, wodurch sie in der gesamten Anwendung verfügbar sind.
+Wie bereits erwähnt, können bestimmte Objekte nur von bestimmten Benutzern auf bestimmte Art und Weise abgerufen werden. So können zum Beispiel Events ausschließlich von Eventmitarbeitern erstellt und bearbeitet, aber allen Benutzern angezeigt und für unterschiedlichste Aktionen genutzt werden, die wiederum nur spezifisch für sie zugelassen sind.
+
+*Javax Persistance* +
+Durch die notwendige Unterteilung der Benutzeroberflächen und der zugrundeliegenden Struktur, die zwar auf jeder Benutzeroberfläche gleich ist, aber unterschiedlich ausgewertet werden muss, war eine eindeutige Identifikation aller Komponenten notwendig. Hierzu greifen wir auf Javax Persistance zurück.
+
+== Bausteinsicht
+
+=== Package-Diagramm
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Package-Diagramme/Packages.jpg[100%,100%]
+
+=== Package user
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_user.png[100%,100%]
+
+=== Package admin
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_admin.png[100%,100%]
+
+=== Package eventmanager
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_eventmanager.png[100%,100%]
+
+=== Package landlord
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_landlord.png[100%,100%]
+
+=== Package tenant
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_tenant.png[100%,100%]
+
+=== Package event
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_event.png[100%,100%]
+
+=== Package holidayHome
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_holidayHome.png[100%,100%]
+
+=== Package order
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_order.png[100%,100%]
+
+=== Package invoice
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_invoice.png[100%,100%]
+
+=== Package statistics
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Klassendiagramme/Package_statistics.png[100%,100%]
+
+== Entwurfsentscheidungen
+
+=== Dialoglandkarte
+image:https://github.com/maxthure/swt18w20/blob/master/src/main/asciidoc/models/design/Dialoglandkarte/Dialoglandkarte.jpg[100%,100%]
+
+=== Patterns
+Bei der Implementierung orientieren wir uns an folgenden Pattern:
+
+*MVC (Model-View-Controller)* +
+Dieses Pattern wird schon durch das Salespoint-Framework vorgegeben.
+
+*Iterator* +
+Dieses Pattern wird benötigt, um zum Beispiel durch eine Liste von Häusern oder Events zu iterieren.
+
+*Observer* +
+Dieses Pattern wird gebraucht, wenn sich beispielsweise der Zustand eines Objektes nach dem eines anderen richten soll.
+
+_Da wir keine Abhängigkeiten dieser Form brauchten, wurde dieses Pattern auch nicht genutzt._
+
+*Factory-Method* +
+Dieses Pattern wird in abgeschwächter bzw. abgewandelter Form genutzt um User zu erzeugen.
+
+_Dieses Pattern mussten wir an unsere Gegebenheiten anpassen_
+
+*Template-Method* +
+Dieses Pattern wird hier speziell im Hinblick auf Sortieralgorithmen aufgeführt. Sollte es nötig sein, Häuser nach Entfernung zu sortieren o.ä., wird dieses Pattern angewendet.
+
+=== Persistenz
+*JPA* +
+Wir nutzen die Java-Persistence Schnittstelle zum vereinfachten Übertragen von Objekten in eine Datenbank.
+
+*Hibernate* +
+Wir benutzen Hibernate5. Hibernate bildet Objekte in einer relationalen Datenbank ab.
+
+Konkret nutzen wir "spring.jpa.hibernate". Durch die Einstellung "update" in "application.properties" wird unsere Datenbank quasi persistent, indem Hibernate beim Starten die Metatdaten ausliest und die Datenbank dementsprechend anpasst. Wichtig zu wissen ist, dass nur Daten hinzugefügt, aber keine gelöscht werden.
+
+
+
+
+[appendix]
+== Glossar 
+* Framework Salespoint (Version : 7.0.0.RELEASE) für grundlegende Funktionen des Verkaufes -> Link:https://st.inf.tu-dresden.de/SalesPoint/v6.4/api/
+* Template Engine Thymeleaf (Version : 3.0.9.RELEASE) als Java Template zur Entwicklung der Web Umgebung -> Link:https://www.thymeleaf.org
+* Framework Spring (Version : 5.1.0.RELEASE) zur grundlegenden Verbindung von „Dependencies“ zur Entwicklung von Webinhalten in Verbindung mit Java -> Link:https://spring.io
+* Build Tool Maven (Version : 3.3.9) zum Projekt Management -> Link:http://maven.apache.org
+* Java (Version : 10) als Programmiersprache zur Entwicklung der Website

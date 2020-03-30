@@ -1,0 +1,41 @@
+= CRC Karten 1. Absatz
+
+[cols="1*"]
+|===
+|Webportal
+
+|Vermietung
+
+|Ferienhäuser in und um Dresden
+|===
+
+[cols="1*"]
+|===
+|Ferienhaus
+
+|Ort
+
+|Beschreibung
+
+|Bilder
+
+|Vermieter
+|===
+
+[cols="2*"]
+|===
+|Benutzer    |
+
+|Buchen      |Anzahlung
+
+|Reservieren |
+
+|Stornieren  |Frist
+|===
+
+[cols="1*"]
+|===
+|Vermieter
+
+|Buchung bestätigen
+|===

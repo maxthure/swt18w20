@@ -1,0 +1,12 @@
+= Continuous Integration and Inspection
+
+Your `master` branch will be continuously built and inspected by https://jenkins.io[Jenkins] and
+https://www.sonarqube.org[SonarQube] instances hosted by the ST group.
+The service is available from inside the TU network at https://st-lab-ci.inf.tu-dresden.de.
+
+There is one account per group. Use the following login for both Jenkins and SonarQube:
+
+* Username: `swt18w20`
+* Password: `Kqv0xO36n2`
+
+Tip: select *Keep me signed in* when logging in to Jenkins.

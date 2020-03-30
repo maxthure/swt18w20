@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{myBookings.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{myBookings.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui link cards" th:remove="all-but-first">
+        <a class="ui card" th:each="order : ${orders}" th:href="@{/detailBooking/{id}(id=${order.id})}">
+            <div class="image">
+                <img th:src="@{/uploads/{image}(image=${order.house.image})}"/>
+            </div>
+            <div class="content">
+                <h2 class="header" th:text="${order.house.nameHouse}">!!!ERROR!!!</h2>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${order.stringFirstDate} + ' - ' + ${order.stringLastDate}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <span th:text="#{order.status.paid} + ': ' ">!!!ERROR!!!</span>
+                <span th:text="${{order.paid}}">10</span>
+            </div>
+            <div class="content">
+                <span th:text="#{booking.price} + ': ' ">!!!ERROR!!!</span>
+                <span th:text="${{order.totalPrice}}">!!!ERROR!!!</span>
+            </div>
+            <div class="content" th:switch="${{order.status}}">
+                <div th:case="'OPEN'" class="description" th:text="#{order.status.open}">!!!ERROR!!!</div>
+                <div th:case="'BOOKING'" class="description" th:text="#{order.status.booking}">!!!ERROR!!!</div>
+                <div th:case="'PAID'" class="description" th:text="#{order.status.paid}">!!!ERROR!!!</div>
+                <div th:case="'COMPLETED'" class="description" th:text="#{order.status.completed}">!!!ERROR!!!</div>
+                <div th:case="'CANCELLED'" class="description" th:text="#{order.status.cancelled}">!!!ERROR!!!</div>
+                <div th:case="'CANCELLEDLATE'" class="description" th:text="#{order.status.cancelled}">!!!ERROR!!!</div>
+                <div th:case="'RESERVATION'" class="description" th:text="#{order.status.reservation}">!!!ERROR!!!</div>
+            </div>
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

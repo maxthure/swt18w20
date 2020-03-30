@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{editEvent.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{editEvent.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form method="post" role="form" class="ui form" id="weeklyEventEditForm" th:action="@{/editWeeklyEvent}" th:object="${weeklyEventEditForm}">
+
+        <h3 class="ui dividing header"></h3>
+
+        <input type="hidden" id="eventID" name="eventID" th:value="${eid}"/>
+        <input type="hidden" id="currentEvent" name="currentEvent" th:value="${currentEvent}"/>
+
+
+        <div class="field">
+            <label for="name" th:text="#{event.name}">!!!ERROR!!!</label>
+            <input id="name" name="name" th:value="${currentEvent.name}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                <p>HouseName must not be empty.</p>
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label for="place" th:text="#{event.place}">!!!ERROR!!!</label>
+            <input id="place" name="place" th:value="${currentEvent.place}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('place')}" th:errors="*{place}">
+                <p>Address must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="description" th:text="#{event.description}">!!!ERROR!!!</label>
+            <input id="description" name="description" th:value="${currentEvent.description}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                <p>Description must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="day" th:text="#{event.day}">!!!ERROR!!!</label>
+            <select style="width:10em" id="day" name="day">
+                <option value="monday" th:text="#{time.day.monday}" th:selected="${currentEvent.day == 'monday'}">Montags</option>
+                <option value="tuesday" th:text="#{time.day.tuesday}" th:selected="${currentEvent.day == 'tuesday'}">Dienstags</option>
+                <option value="wednesday" th:text="#{time.day.wednesday}" th:selected="${currentEvent.day == 'wednesday'}">Mittwochs</option>
+                <option value="thursday" th:text="#{time.day.thursday}" th:selected="${currentEvent.day == 'thursday'}">Donnerstags</option>
+                <option value="friday" th:text="#{time.day.friday}" th:selected="${currentEvent.day == 'friday'}">Freitags</option>
+                <option value="saturday" th:text="#{time.day.saturday}" th:selected="${currentEvent.day == 'saturday'}">Samstags</option>
+                <option value="sunday" th:text="#{time.day.sunday}" th:selected="${currentEvent.day == 'sunday'}">Sonntags</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="hours" th:text="#{event.time}">!!!ERROR!!!</label>
+            <input placeholder="hh" style="width:5em" id="hours" name="hours" th:value="${currentEvent.actualHours}" th:errorclass="fieldError" type="number" min="0" max="23" step="1" required="required"/> :
+            <input placeholder="mm" style="width:5em" id="minutes" name="minutes" th:value="${currentEvent.actualMinutes}" th:errorclass="fieldError" type="number" min="0" max="59" step="1" required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('hours')}" th:errors="*{hours}">
+                <p>Price must not be empty.</p>
+            </div>
+        </div>
+
+
+        <button type="submit" name= "edit" class="ui button" th:text="#{event.save}">!!!ERROR!!!</button>
+
+        <button type="submit" name= "delete" class="ui button" th:text="#{general.delete}">!!!ERROR!!!</button>
+
+    </form>
+</div>
+</body>
+</html>

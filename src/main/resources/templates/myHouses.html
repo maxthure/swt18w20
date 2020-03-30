@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{myHouses.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{myHouses.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui link cards" th:remove="all-but-first">
+        <a class="ui card" th:each="house : ${housesByUser}" th:href="@{/detail/{id}(id=${house.id})}">
+            <div class="image">
+                <img th:src="@{/uploads/{image}(image=${house.image})}"/>
+            </div>
+            <div class="content">
+                <h2 class="header" th:text="${house.nameHouse}">!!!ERROR!!!</h2>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${house.address[0]}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{house.beds} + ': ' + ${house.beds}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{house.minStay} + ': ' + ${house.minStay}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="#{house.maxStay} + ': ' + ${house.maxStay}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description" th:text="${{house.price}}">!!!ERROR!!!</div>
+            </div>
+            <div class="content">
+                <div class="description">
+                    <strong th:text="#{event.requested}+':'">!!!ERROR!!!</strong>
+                    <p th:each="event : ${house.requestedEvents}" th:text="${event.name}" style="color:#FF0000">!!!ERROR!!!</p>
+                </div>
+            </div>
+            <div class="content">
+                <div class="description">
+                    <strong th:text="#{event.confirmed}+':'">!!!ERROR!!!</strong>
+                    <p th:each="event : ${house.confirmedEvents}" th:text="${event.name}">!!!ERROR!!!</p>
+                </div>
+            </div>
+            <div class="extra content" th:text="${{house.nameLandlord}}"> !!!ERROR!!!</div>
+        </a>
+    </div>
+</div>
+</body>
+</html>

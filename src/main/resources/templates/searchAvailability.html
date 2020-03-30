@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <script th:src="@{/webjars/semantic-ui-calendar/dist/calendar.min.js}"
+            src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+    <link th:href="@{/webjars/semantic-ui-calendar/dist/calendar.min.css}"
+          href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            $('.ui.accordion').accordion();
+            /*[# th:switch="#{general.language.short}"]*/
+                /*[# th:case="'de'"]*/
+                    var day = ['S', 'M', 'D', 'M', 'D', 'F', 'S'];
+                    var month = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+                /*[/]*/
+                /*[# th:case="*"]*/
+                    var day = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+                    var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                /*[/]*/
+            /*[/]*/
+            var today = new Date();
+            $('#rangestart').calendar({
+                firstDayOfWeek: 1,
+                text: {
+                    days: day,
+                    months: month
+                },
+                formatter: {
+                    date: function (date) {
+                        if (!date) return '';
+                        var day = date.getDate();
+                        document.getElementById('start_day').value = day;
+                        var month = date.getMonth() + 1;
+                        document.getElementById('start_month').value = month;
+                        var year = date.getFullYear();
+                        document.getElementById('start_year').value = year;
+                        return day + '.' + month + '.' + year;
+                    }
+                },
+                type: 'date',
+                minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+                endCalendar: $('#rangeend')
+            });
+            $('#rangeend').calendar({
+                firstDayOfWeek: 1,
+                text: {
+                    days: day,
+                    months: month
+                },
+                formatter: {
+                    date: function (date) {
+                        if (!date) return '';
+                        var day = date.getDate();
+                        document.getElementById('end_day').value = day;
+                        var month = date.getMonth() + 1;
+                        document.getElementById('end_month').value = month;
+                        var year = date.getFullYear();
+                        document.getElementById('end_year').value = year;
+                        return day + '.' + month + '.' + year;
+                    }
+                },
+                type: 'date',
+                minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+                startCalendar: $('#rangestart')
+            });
+        });
+        /*]]>*/
+    </script>
+
+    <title th:text="#{availability.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{availability.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <h2 th:text="#{availability.dates}">!!!ERROR!!!</h2>
+    <h3 class="ui dividing header"></h3>
+
+    <form autocomplete="off" method="post" role="form" class="ui form" id="availabilityForm" th:action="@{/availableHouses}" th:object="${availabilityForm}">
+
+        <div class="ui form">
+            <div class="four fields">
+                <div class="field">
+                    <label th:text="#{availability.start}">!!!ERROR!!!</label>
+                    <div class="ui calendar" id="rangestart">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input type="text" th:placeholder="#{availability.start}">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label th:text="#{availability.end}">!!!ERROR!!!</label>
+                    <div class="ui calendar" id="rangeend">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input type="text" th:placeholder="#{availability.end}">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label th:text="#{availability.guests}">!!!ERROR!!!</label>
+                    <input style="width:5em" id="guests" name="guests" type="number" min="1" step="1" value="1"/><br>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="start_day" th:field="*{dayStart}">
+        <input type="hidden" id="start_month" th:field="*{monthStart}">
+        <input type="hidden" id="start_year" th:field="*{yearStart}">
+
+        <input type="hidden" id="end_day" th:field="*{dayEnd}">
+        <input type="hidden" id="end_month" th:field="*{monthEnd}">
+        <input type="hidden" id="end_year" th:field="*{yearEnd}">
+
+        <button type="submit" class="ui button" th:text="#{availability.save}">!!!ERROR!!!</button>
+
+        <div class="ui accordion">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                <span th:text="#{features.title}">!!!ERROR!!!</span>
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="one field">
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="kitchenSearch" name="kitchenSearch" value="true">
+                                <label for="kitchenSearch" th:text="#{feature.kitchen}">Kitchen</label>
+                                <input type="hidden" name="kitchenSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="acSearch" name="acSearch" value="true">
+                                <label for="acSearch" th:text="#{feature.ac}">AC</label>
+                                <input type="hidden" name="acSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="washingMachineSearch" name="washingMachineSearch" value="true">
+                                <label for="washingMachineSearch" th:text="#{feature.washing_machine}">Washing Machine</label>
+                                <input type="hidden" name="washingMachineSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="tumbleDryerSearch" name="tumbleDryerSearch" value="true">
+                                <label for="tumbleDryerSearch" th:text="#{feature.tumble_dryer}">Tumble Dryer</label>
+                                <input type="hidden" name="tumbleDryerSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="wifiSearch" name="wifiSearch" value="true">
+                                <label for="wifiSearch" th:text="#{feature.wifi}">WIFI</label>
+                                <input type="hidden" name="wifiSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="babyCribSearch" name="babyCribSearch" value="true">
+                                <label for="babyCribSearch" th:text="#{feature.baby_crib}">Baby Crib</label>
+                                <input type="hidden" name="babyCribSearch" value="false">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="televisionSearch" name="televisionSearch" value="true">
+                                <label for="televisionSearch" th:text="#{feature.television}">Television</label>
+                                <input type="hidden" name="televisionSearch" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{statistics.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{statistics.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <h2 th:text="#{bookings.title}">!!!ERROR!!!</h2>
+    <table class="ui fixed single line celled selectable table">
+        <thead>
+        <tr>
+            <th th:text="#{booking.title}">!!!ERROR!!!</th>
+            <th th:text="#{detail.date.from}">!!!ERROR!!!</th>
+            <th th:text="#{detail.date.to}">!!!ERROR!!!</th>
+            <th th:text="#{booking.price}">!!!ERROR!!!</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong th:text="#{order.status.booking}">!!!ERROR!!!</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each=" booking : ${bookingsBooking}">
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${booking.house.name}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.firstDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.lastDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${{booking.paid}}">!!!ERROR!!!</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td th:text="#{cart.sum}+':'">!!!ERROR!!!</td>
+            <td th:text="${{bookingTotal}}">!!!ERROR!!!</td>
+        </tr>
+        <tr>
+            <td><strong th:text="#{order.status.paid}">!!!ERROR!!!</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each=" booking : ${bookingsPaid}">
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${booking.house.name}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.firstDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.lastDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${{booking.paidHouse}}">!!!ERROR!!!</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td th:text="#{cart.sum}+':'">!!!ERROR!!!</td>
+            <td th:text="${{paidTotal}}">!!!ERROR!!!</td>
+        </tr>
+        <tr>
+            <td><strong th:text="#{order.status.completed}">!!!ERROR!!!</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each=" booking : ${bookingsCompleted}">
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${booking.house.name}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.firstDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.lastDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${{booking.paidHouse}}">!!!ERROR!!!</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td th:text="#{cart.sum}+':'">!!!ERROR!!!</td>
+            <td th:text="${{completedTotal}}">!!!ERROR!!!</td>
+        </tr>
+        <tr>
+            <td><strong th:text="#{order.status.cancelled}">!!!ERROR!!!</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each=" booking : ${bookingsCancelledLate}">
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${booking.house.name}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.firstDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${#temporals.format(booking.lastDate, 'dd.MM.yyyy')}">!!!ERROR!!!</a></td>
+            <td class="selectable"><a th:href="@{/detailBooking/{id}(id=${booking.id})}" th:text="${{booking.paid}}">!!!ERROR!!!</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td th:text="#{cart.sum}+':'">!!!ERROR!!!</td>
+            <td th:text="${{cancelledLateTotal}}">!!!ERROR!!!</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr class="active">
+            <td></td>
+            <td></td>
+            <td th:text="#{cart.sum}+':'">!!!ERROR!!!</td>
+            <td th:text="${{totalTotal}}">!!!ERROR!!!</td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/momentjs/moment.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <script th:src="@{/webjars/fullcalendar/fullcalendar.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script th:src="@{/webjars/fullcalendar/locale-all.js}"></script>
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.print.min.css}"
+          href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.min.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel='stylesheet'>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function(){
+            var event3 = [];
+
+            /*[# th:each="n : ${uniqueEvents}"]*/
+                event3.push({title: /*[[${n.name}]]*/ '1', url: /*[[@{/detailEvent/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.date} +'T'+ ${n.time}+':00']]*/ '2018-11-01T16:00:00', color: '#606772'});
+            /*[/]*/
+            /*[# th:each="i : ${weeklyEvents}"]*/
+            /*[# th:each="j : ${i.value}"]*/
+            event3.push({title: /*[[${j.name}]]*/ '1', url: /*[[@{/detailEvent/{id}(id=${j.id})}]]*/ 'https://google.com/', start: /*[[${i.key} +'T'+ ${j.time}+':00']]*/ '2018-11-01T16:00:00', color: '#336370'});
+            /*[/]*/
+            /*[/]*/
+
+            $('#calendar').fullCalendar({
+                locale: /*[[#{general.language.short}]]*/'en',
+                fixedWeekCount: false,
+                aspectRatio: 1.8,
+                header: {
+                    left: 'today',
+                    center: 'title',
+                    right: 'prev,next'
+                },
+                defaultDate: /*[[${booking.firstDate}]]*/ '2018-11-01',
+                eventLimit: true, // allow "more" link when too many events
+                events: event3,
+                timeFormat: 'HH:mm'
+            });
+        });
+        /*]]>*/
+
+    </script>
+
+    <title th:text="#{detail.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<header>
+    <h1 th:text="#{detail.title}">!!!ERROR!!!</h1>
+</header>
+
+<nav th:include="navigation :: navigation"></nav>
+
+<div class ="ui container">
+    <div class="ui segment">
+
+        <div class="ui divided items">
+            <div class="item">
+
+                <div class="image">
+                    <img th:src="@{/uploads/{image}(image=${booking.house.image})}"/>
+                </div>
+
+                <div class="content">
+                    <a class="header" th:text="${booking.house.name}" th:href="@{/detail/{id}(id=${booking.house.id})}">!!!ERROR!!!</a>
+                    <div>
+                        <span th:text="${booking.house.description}">!!!ERROR!!!</span><br/>
+                        <span th:text="${booking.house.address[0]+', '+booking.house.address[1]+', '+booking.house.address[2]}">!!!ERROR!!!</span><br/>
+                        <span th:text="${{booking.house.price}} + ' ' + #{detail.perNight}">!!!ERROR!!!€</span><br/>
+                        <span th:text="${booking.stringFirstDate} + ' - ' + ${booking.stringLastDate}">!!!ERROR!!!</span><br/>
+                        <br>
+                        <div th:each="item : ${booking.orderLines}">
+                            <div th:switch="${instance}">
+                                <div th:case="'tenant'">
+                                    <span th:text="${item.productName}">!!!ERROR!!!</span><br>
+                                    <span th:text="#{item.quantity} + ': '+ ${item.quantity}">!!!ERROR!!!</span><br>
+                                    <span th:text="#{booking.price} + ': '+ ${{item.price}}">!!!ERROR!!!</span><br>
+                                    <br>
+                                </div>
+                                <div th:case="*">
+                                    <span th:if="${item.productIdentifier} == ${booking.house.id}" th:text="${item.productName}">!!!ERROR!!!</span><br th:if="${item.productIdentifier} == ${booking.house.id}">
+                                    <span th:if="${item.productIdentifier} == ${booking.house.id}" th:text="#{item.quantity} + ': '+ ${item.quantity}">!!!ERROR!!!</span><br th:if="${item.productIdentifier} == ${booking.house.id}">
+                                    <span th:if="${item.productIdentifier} == ${booking.house.id}"th:text="#{booking.price} + ': '+ ${{item.price}}">!!!ERROR!!!</span><br th:if="${item.productIdentifier} == ${booking.house.id}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <span th:text="#{order.status.paid} + ': ' + ${{booking.getPaid()}}">!!!ERROR!!!</span><br/>
+                        <span th:text="#{booking.price} + ': ' + ${{booking.totalPrice}}">!!!ERROR!!!</span><br/>
+                        <br>
+                        <div th:switch="${instance}">
+                            <div th:case="'tenant'">
+                                <div class="content" th:switch="${{booking.status}}">
+                                    <div th:case="'RESERVATION'">
+                                        <span th:text="#{order.status.reservation}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/booking/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.booking}">!!!ERROR!!!</button>
+                                        </form>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                        <div class="right floated content">
+                                            <form class="ui form" method="post" th:action="@{/createCalendar/{id}(id=${booking.id})}">
+                                                <button type="submit" class="ui button" th:text="#{calendar.export}">Kalender</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:case="'OPEN'">
+                                        <span th:text="#{order.status.open}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/deposit/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.deposit}">!!!ERROR!!!</button>
+                                        </form>
+                                        <form class="ui form" method="post" th:action="@{/pay/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.pay}">!!!ERROR!!!</button>
+                                        </form>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                        <div class="right floated content">
+                                            <form class="ui form" method="post" th:action="@{/createCalendar/{id}(id=${booking.id})}">
+                                                <button type="submit" class="ui button" th:text="#{calendar.export}">Kalender</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:case="'BOOKING'">
+                                        <span th:text="#{order.status.booking}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/pay/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.pay}">!!!ERROR!!!</button>
+                                        </form>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                        <div class="right floated content">
+                                            <form class="ui form" method="post" th:action="@{/createCalendar/{id}(id=${booking.id})}">
+                                                <button type="submit" class="ui button" th:text="#{calendar.export}">Kalender</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:case="'PAID'">
+                                        <span th:text="#{order.status.paid}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                        <div class="right floated content">
+                                            <form class="ui form" method="post" th:action="@{/createCalendar/{id}(id=${booking.id})}">
+                                                <button type="submit" class="ui button" th:text="#{calendar.export}">Kalender</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:case="'COMPLETED'">
+                                        <span th:text="#{order.status.completed}">!!!ERROR!!!</span>
+                                    </div>
+                                    <div th:case="'CANCELLED'">
+                                        <span th:text="#{order.status.cancelled}">!!!ERROR!!!</span>
+                                    </div>
+                                    <div th:case="'CANCELLEDLATE'">
+                                        <span th:text="#{order.status.cancelled}">!!!ERROR!!!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:case="'landlord'">
+                                <div class="content" th:switch="${{booking.status}}">
+                                    <div th:case="'RESERVATION'">
+                                        <span th:text="#{order.status.reservation}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                    </div>
+                                    <div th:case="'OPEN'">
+                                        <span th:text="#{order.status.open}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                    </div>
+                                    <div th:case="'BOOKING'">
+                                        <span th:text="#{order.status.booking}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                    </div>
+                                    <div th:case="'PAID'">
+                                        <span th:text="#{order.status.paid}">!!!ERROR!!!</span>
+                                        <form class="ui form" method="post" th:action="@{/cancel/{id}(id=${booking.id})}">
+                                            <button type="submit" class="ui button" th:text="#{payments.cancel}">!!!ERROR!!!</button>
+                                        </form>
+                                    </div>
+                                    <div th:case="'COMPLETED'">
+                                        <span th:text="#{order.status.completed}">!!!ERROR!!!</span>
+                                    </div>
+                                    <div th:case="'CANCELLED'">
+                                        <span th:text="#{order.status.cancelled}">!!!ERROR!!!</span>
+                                    </div>
+                                    <div th:case="'CANCELLEDLATE'">
+                                        <span th:text="#{order.status.cancelled}">!!!ERROR!!!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div th:switch="${instance}">
+    <div th:case="'tenant'">
+        <div class="ui segment">
+            <div class="ui container">
+                <div class="ui grid">
+                    <div class="ui sixteen column">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

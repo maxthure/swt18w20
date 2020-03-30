@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{event.createWeekly}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{event.createWeekly}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form method="post" role="form" class="ui form" id="wEventForm" th:action="@{/weeklyEventCreation}" th:object="${wEventForm}">
+
+        <h3 class="ui dividing header"></h3>
+
+        <div class="required field">
+            <label for="name" th:text="#{event.name}">!!!ERROR!!!</label>
+            <input id="name" name="name" th:field="*{name}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                <p>Name must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="day" th:text="#{event.day}">!!!ERROR!!!</label>
+            <select style="width:10em" id="day" name="day" th:field="*{day}" required>
+                <option value="monday" th:text="#{time.day.monday}">!!!ERROR!!!</option>
+                <option value="tuesday" th:text="#{time.day.tuesday}">!!!ERROR!!!</option>
+                <option value="wednesday" th:text="#{time.day.wednesday}">!!!ERROR!!!</option>
+                <option value="thursday" th:text="#{time.day.thursday}">!!!ERROR!!!</option>
+                <option value="friday" th:text="#{time.day.friday}">!!!ERROR!!!</option>
+                <option value="saturday" th:text="#{time.day.saturday}">!!!ERROR!!!</option>
+                <option value="sunday" th:text="#{time.day.sunday}">!!!ERROR!!!</option>
+            </select>
+        </div>
+
+        <div class="required field">
+            <label for="place" th:text="#{event.place}">!!!ERROR!!!</label>
+            <input id="place" name="place" th:field="*{place}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('place')}" th:errors="*{place}">
+                <p>Place must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="description" th:text="#{event.description}">!!!ERROR!!!</label>
+            <input id="description" name="description" th:field="*{description}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                <p>Description must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="hours" th:text="#{event.time}">!!!ERROR!!!</label>
+            <input placeholder="hh" style="width:5em" id="hours" name="hours" th:field="*{hours}" th:errorclass="fieldError" type="number" min="0" max="23" step="1" required="required"/> :
+            <input placeholder="mm" style="width:5em" id="minutes" name="minutes" th:field="*{minutes}" th:errorclass="fieldError" type="number" min="0" max="59" step="1" required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('hours')}" th:errors="*{hours}">
+                <p>Price must not be empty.</p>
+            </div>
+        </div>
+
+        <div class="required field">
+            <label for="houses" th:text="#{houses.title}">!!!ERROR!!!</label>
+            <select id="houses" name="houses" multiple th:remove="all-but-first" th:field="*{houses}" required>
+                <option th:each=" house : ${houses}"  th:value="${house.id}" th:text="${house.nameHouse}">!!!ERROR!!!</option>
+            </select>
+        </div>
+
+        <button type="submit" class="ui button" th:text="#{event.save}">!!!ERROR!!!</button>
+    </form>
+</div>
+</body>
+</html>

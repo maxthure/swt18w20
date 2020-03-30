@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{detail.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{detail.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="item">
+        <h2 th:text="${event.name}">!!!ERROR!!!</h2>
+        <span th:text="#{event.description}+ ': ' +${event.description}">!!!ERROR!!!</span><br/>
+        <span th:text="#{event.place}+ ': ' +${event.place}">!!!ERROR!!!</span><br/>
+        <span th:text="#{event.time}+ ': ' +${#temporals.format(event.time, 'HH:mm')}">!!!ERROR!!!</span><br/>
+        <div th:switch="${{event.type}}">
+            <div th:case="'UNIQUE'">
+                <span th:text="#{event.date}+ ': ' +${#temporals.format(event.date, 'dd.MM.yyyy')}">!!!ERROR!!!</span><br/>
+                <span th:text="#{event.price}+ ': ' +${{event.price}}">!!!ERROR!!!</span><br/>
+            </div>
+            <div th:case="'WEEKLY'">
+                <div th:switch="${event.day}">
+                    <span th:case="'monday'" th:text="#{event.day}+ ': ' +#{time.day.monday}">!!!ERROR!!!</span>
+                    <span th:case="'tuesday'" th:text="#{event.day}+ ': ' +#{time.day.tuesday}">!!!ERROR!!!</span>
+                    <span th:case="'wednesday'" th:text="#{event.day}+ ': ' +#{time.day.wednesday}">!!!ERROR!!!</span>
+                    <span th:case="'thursday'" th:text="#{event.day}+ ': ' +#{time.day.thursday}">!!!ERROR!!!</span>
+                    <span th:case="'friday'" th:text="#{event.day}+ ': ' +#{time.day.friday}">!!!ERROR!!!</span>
+                    <span th:case="'saturday'" th:text="#{event.day}+ ': ' +#{time.day.saturday}">!!!ERROR!!!</span>
+                    <span th:case="'sunday'" th:text="#{event.day}+ ': ' +#{time.day.sunday}">!!!ERROR!!!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

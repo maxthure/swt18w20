@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{events.title}">!!!ERROR!!!</title>
+</head>
+<body>
+    <header>
+        <h1 th:text="#{events.title} ">Warenkorb</h1>
+    </header>
+    <div class="ui container">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th th:text="#{event.name}">Eventname</th>
+                <th th:text="#{event.description}">Beschreibung</th>
+                <th th:text="#{event.price}">Preis</th>
+                <th th:text="#{event.date}">Datum</th>
+                <th th:text="#{event.time}">Uhrzeit</th>
+                <th th:text="#{event.place}">Ort</th>
+                <th >Anzahl an Personen</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each=" event : ${events}">
+                    <td th:text="${event.name}">Schäfchen zählen</td>
+                    <td th:text="${event.description}">Wie der Name schon sagt</td>
+                    <td th:text="${event.price}">500,00 €</td>
+                    <td th:text="${#temporals.format(event.date, 'dd.MM.yyyy')}">05.12.2018</td>
+                    <td th:text="${#temporals.format(event.time, 'HH:mm')}">22:00</td>
+                    <td th:text="${event.place}">Weide</td>
+                    <td>
+                        <form class="ui form" method="post" id="orderForm" th:action="@{/add}" th:object="${form}">
+                            <input type="hidden" name="event" th:value="${event.id}"/>
+                            <input type="hidden" name="house" th:value="${form.house}"/>
+                            <input type="hidden" name="type" th:value="${form.type}">
+                            <input type="hidden" name="yearStart" th:value="${form.yearStart}">
+                            <input type="hidden" name="monthStart" th:value="${form.monthStart}">
+                            <input type="hidden" name="dayStart" th:value="${form.dayStart}">
+                            <input type="hidden" name="yearEnd" th:value="${form.yearEnd}">
+                            <input type="hidden" name="monthEnd" th:value="${form.monthEnd}">
+                            <input type="hidden" name="dayEnd" th:value="${form.dayEnd}">
+                            <div class="field">
+                                <input id="number" type="number" name="number" min="1" step="1" value="1" /><br/>
+                            </div>
+                            <button type="submit" class="ui labeled icon button">
+                                <i class="add to cart icon"></i><span th:text="#{general.add}">Hinzufügen</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form class="ui form" method="post" th:action="@{/cart}" th:object="${form}">
+            <input type="hidden" name="house" th:value="${form.house}"/>
+            <input type="hidden" name="type" th:value="${form.type}">
+            <input type="hidden" name="yearStart" th:value="${form.yearStart}">
+            <input type="hidden" name="monthStart" th:value="${form.monthStart}">
+            <input type="hidden" name="dayStart" th:value="${form.dayStart}">
+            <input type="hidden" name="yearEnd" th:value="${form.yearEnd}">
+            <input type="hidden" name="monthEnd" th:value="${form.monthEnd}">
+            <input type="hidden" name="dayEnd" th:value="${form.dayEnd}">
+            <div align="right">
+                <button type="submit" class="ui right labeled icon button">
+                    <i class="right arrow icon"></i>
+                    Next
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+= CRC Karten 4. Absatz
+
+[%header,format=csv]
+|===
+Eventmitarbeiter,
+VERANTWORTLICHKEITEN, MITHELFER
+createEvent,  Event
+editEvent,
+deleteEvent,
+|===
+
+[%header,format=csv]
+|===
+Event groß/einmalig, Event klein/wöchentlich
+ATTRIBUTE, ATTRIBUTE
+Name, Name
+Ort, Ort
+Zeit, Zeit
+Preis, Preis
+Ferienhaus/-häuser,
+|===

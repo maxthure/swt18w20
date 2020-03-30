@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+</head>
+<body>
+<nav th:fragment="navigation">
+    <div class="ui menu">
+
+        <a class="item" href="registrations.html" th:href="@{/registrations}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{registrations.title}">!!!ERROR!!!</a>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('ROLE_ADMIN')"> <span th:text="#{users.title}" th:remove="tag">!!!ERROR!!!</span> <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="user.html" th:href="@{/eventmanager}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{user.eventmanager}">!!!ERROR!!!</a>
+                <a class="item" href="user.html" th:href="@{/landlords}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{user.landlord}">!!!ERROR!!!</a>
+                <a class="item" href="user.html" th:href="@{/tenants}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{user.tenant}">!!!ERROR!!!</a>
+            </div>
+        </div>
+
+        <a class="item" href="events.html" th:href="@{/events}" th:text="#{events.title}">!!!ERROR!!!</a>
+        <a class="item" href="houses.html" th:href="@{/houses}" th:text="#{houses.title}">!!!ERROR!!!</a>
+        <a class="item" href="searchAvailability.html" th:href="@{/searchAvailability}" sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER','ROLE_LANDLORD')" th:text="#{availability.title}">!!!ERROR!!!</a>
+
+        <a class="item" href="orders.html" th:href="@{/orders}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{bookings.title}">!!!ERROR!!!</a>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('ROLE_EVENTMANAGER')"><span th:text="#{createEvent.title}" th:remove="tag">!!!ERROR!!!</span><i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="uniqueEventCreation.html" th:href="@{/uniqueEventCreation}" th:text="#{events.unique}">!!!ERROR!!!</a>
+                <a class="item" href="weeklyEventCreation.html" th:href="@{/weeklyEventCreation}" th:text="#{events.weekly}">!!!ERROR!!!</a>
+            </div>
+        </div>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('ROLE_LANDLORD')"> <span th:text="#{myHouses.title}" th:remove="tag">!!!ERROR!!!</span> <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="createHouse.html" th:href="@{/createHouse}" sec:authorize="hasRole('ROLE_LANDLORD')" th:text="#{createHouse.title}">!!!ERROR!!!</a>
+                <a class="item" href="myHouses.html" th:href="@{/myHouses}" sec:authorize="hasRole('ROLE_LANDLORD')" th:text="#{myHouses.title}">!!!ERROR!!!</a>
+            </div>
+        </div>
+
+
+        <a class="item" href="myEvents.html" th:href="@{/myEvents}" sec:authorize="hasRole('ROLE_EVENTMANAGER')" th:text="#{myEvents.title}">!!!ERROR!!!</a>
+        <a class="item" href="myBookings.html" th:href="@{/myBookings}" sec:authorize="hasRole('ROLE_TENANT')" th:text="#{myBookings.title}">!!!ERROR!!!</a>
+        <a class="item" href="wishlist.html" th:href="@{/wishlist}" sec:authorize="hasRole('ROLE_TENANT')" th:text="#{wishlist.title}">!!!ERROR!!!</a>
+
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('ROLE_LANDLORD')"> <span th:text="#{statistics.title}" th:remove="tag">!!!ERROR!!!</span> <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="bookingsLandlord.html" th:href="@{/bookingsLandlord}" sec:authorize="hasRole('ROLE_LANDLORD')" th:text="#{bookingsLandlord.title}">!!!ERROR!!!</a>
+                <a class="item" href="cancellations.html" th:href="@{/cancellations}" sec:authorize="hasRole('ROLE_LANDLORD')" th:text="#{cancellation.title}">!!!ERROR!!!</a>
+                <a class="item" href="statisticsLandlord.html" th:href="@{/statisticsLandlord}" sec:authorize="hasRole('ROLE_LANDLORD')" th:text="#{statistics.title}">!!!ERROR!!!</a>
+            </div>
+        </div>
+
+        <a class="item" href="statisticsEventmanager.html" th:href="@{/statisticsEventmanager}" sec:authorize="hasRole('ROLE_EVENTMANAGER')" th:text="#{statistics.title}">!!!ERROR!!!</a>
+
+        <div class="right menu">
+            <a class="item" th:href="@{/faq}" th:text="#{faq.title.short}">!!!ERROR!!!</a>
+            <div class="ui simple dropdown item" sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER','ROLE_LANDLORD','ROLE_TENANT')"><span th:text="#{register.title}" th:remove="tag">!!!ERROR!!!</span><i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="register.html" th:href="@{/tenant/register}" th:text="#{register.tenant}">!!!ERROR!!!</a>
+                    <a class="item" href="register.html" th:href="@{/landlord/register}" th:text="#{register.landlord}">!!!ERROR!!!</a>
+                    <a class="item" href="register.html" th:href="@{/eventmanager/register}" th:text="#{register.eventmanager}">!!!ERROR!!!</a>
+                </div>
+            </div>
+            <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{login.login}">!!!ERROR!!!</a>
+            <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button type="submit" class="ui button" th:text="#{login.logout}">!!!ERROR!!!</button>
+            </form>
+        </div>
+    </div>
+    <br/>
+</nav>
+
+</body>
+</html>

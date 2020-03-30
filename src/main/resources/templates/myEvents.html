@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title th:text="#{myEvents.title}">!!!ERROR!!!</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{myEvents.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <table class="ui fixed single line celled table">
+        <thead>
+        <tr>
+            <th th:text="#{event.name}">!!!ERROR!!!</th>
+            <th th:text="#{event.description}">!!!ERROR!!!</th>
+            <th th:text="#{event.type}">!!!ERROR!!!</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" event : ${eventsByUser}">
+            <td th:text="${event.name}">!!!ERROR!!!</td>
+            <td th:text="${event.description}">!!!ERROR!!!</td>
+            <div th:switch="${event.type.name()}">
+                <div th:case="'UNIQUE'">
+                    <td th:text="#{event.unique}">!!!ERROR!!!</td>
+                </div>
+                <div th:case="'WEEKLY'">
+                    <td th:text="#{event.weekly}">!!!ERROR!!!</td>
+                </div>
+            </div>
+            <td>
+                <form action="redirect" th:action="@{/event/{id}(id=${event.id})}">
+                    <button type="submit" class="ui button" th:text="#{general.change}">!!!ERROR!!!</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p><a th:href="@{/uniqueEventCreation}" th:text="#{event.createUnique}">!!!ERROR!!!</a></p>
+    <p><a th:href="@{/weeklyEventCreation}" th:text="#{event.createWeekly}">!!!ERROR!!!</a></p>
+
+</div>
+</body>
+</html>

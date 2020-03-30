@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/momentjs/moment.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet"
+          href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <script th:src="@{/webjars/fullcalendar/fullcalendar.min.js}"
+            src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script th:src="@{/webjars/fullcalendar/locale-all.js}"></script>
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.print.min.css}"
+          href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link th:href="@{/webjars/fullcalendar/fullcalendar.min.css}"
+            href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel='stylesheet'>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function(){
+            var event3 = [];
+
+            /*[# th:each="n : ${uniqueEventList}"]*/
+
+            event3.push({title: /*[[${n.name}]]*/ '1', url: /*[[@{/detailEvent/{id}(id=${n.id})}]]*/ 'https://google.com/', start: /*[[${n.date} +'T'+ ${n.time}+':00']]*/ '2018-11-01T16:00:00'});
+
+            /*[/]*/
+
+            $('#calendar2').fullCalendar({
+                locale: /*[[#{general.language.short}]]*/'en',
+                fixedWeekCount: false,
+                aspectRatio: 1.8,
+                header: {
+                    left: 'today',
+                    center: 'title',
+                    right: 'prev,next'
+                },
+                defaultDate: Date.now(),
+                eventLimit: true, // allow "more" link when too many events
+                events: event3,
+                eventColor: '#0967a5',
+                timeFormat: 'HH:mm'
+            });
+        });
+        /*]]>*/
+
+    </script>
+
+    <title th:text="#{events.title}">!!!ERROR!!!</title>
+</head>
+<body id="events">
+<div class="ui container">
+    <header>
+        <h1 th:text="#{events.title}">!!!ERROR!!!</h1>
+    </header>
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <div class="ui segment">
+        <h2 th:text="#{events.unique}">!!!ERROR!!!</h2>
+
+        <table class="ui fixed single line celled table">
+            <thead>
+            <tr>
+                <th th:text="#{event.name}">!!!ERROR!!!</th>
+                <th th:text="#{event.description}">!!!ERROR!!!</th>
+                <th th:text="#{event.price}">!!!ERROR!!!</th>
+                <th th:text="#{event.date}">!!!ERROR!!!</th>
+                <th th:text="#{event.time}">!!!ERROR!!!</th>
+                <th th:text="#{event.place}">!!!ERROR!!!</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each=" event : ${uniqueEventList}">
+                <td th:text="${event.name}">!!!ERROR!!!</td>
+                <td th:text="${event.description}">!!!ERROR!!!</td>
+                <td th:text="${{event.price}}">!!!ERROR!!!</td>
+                <td th:text="${#temporals.format(event.date, 'dd.MM.yyyy')}">!!!ERROR!!!</td>
+                <td th:text="${#temporals.format(event.time, 'HH:mm')}">!!!ERROR!!!</td>
+                <td th:text="${event.place}">!!!ERROR!!!</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a th:href="@{/uniqueEventCreation}" sec:authorize="hasRole('ROLE_EVENTMANAGER')" th:text="#{event.createUnique}">!!!ERROR!!!</a></p>
+        <div class="ui container">
+            <div class="ui grid">
+                <div class="ui sixteen column">
+                    <div id="calendar2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <h2 th:text="#{events.weekly}">!!!ERROR!!!</h2>
+
+        <table class="ui fixed single line celled table">
+            <thead>
+            <tr>
+                <th th:text="#{event.name}">!!!ERROR!!!</th>
+                <th th:text="#{event.description}">!!!ERROR!!!</th>
+                <th th:text="#{event.day}">!!!ERROR!!!</th>
+                <th th:text="#{event.time}">!!!ERROR!!!</th>
+                <th th:text="#{event.place}">!!!ERROR!!!</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each=" event : ${weeklyEventList}">
+                <td th:text="${event.name}">!!!ERROR!!!</td>
+                <td th:text="${event.description}">!!!ERROR!!!</td>
+                <div th:switch="${event.day}">
+                    <td th:case="'monday'" th:text="#{time.day.monday}">!!!ERROR!!!</td>
+                    <td th:case="'tuesday'" th:text="#{time.day.tuesday}">!!!ERROR!!!</td>
+                    <td th:case="'wednesday'" th:text="#{time.day.wednesday}">!!!ERROR!!!</td>
+                    <td th:case="'thursday'" th:text="#{time.day.thursday}">!!!ERROR!!!</td>
+                    <td th:case="'friday'" th:text="#{time.day.friday}">!!!ERROR!!!</td>
+                    <td th:case="'saturday'" th:text="#{time.day.saturday}">!!!ERROR!!!</td>
+                    <td th:case="'sunday'" th:text="#{time.day.sunday}">!!!ERROR!!!</td>
+                </div>
+                <td th:text="${#temporals.format(event.time, 'HH:mm')}">22:00</td>
+                <td th:text="${event.place}">!!!ERROR!!!</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p><a th:href="@{/weeklyEventCreation}" sec:authorize="hasRole('ROLE_EVENTMANAGER')" th:text="#{event.createWeekly}">!!!ERROR!!!</a></p>
+
+        <table class="ui fixed single line celled table">
+            <thead>
+            <tr>
+                <th th:text="#{time.day.monday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.tuesday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.wednesday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.thursday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.friday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.saturday}">!!!ERROR!!!</th>
+                <th th:text="#{time.day.sunday}">!!!ERROR!!!</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each=" number : ${numbers}">
+                <div th:switch="${#lists.size(monday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${monday[number].id})}" th:text="${monday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(tuesday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${tuesday[number].id})}" th:text="${tuesday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(wednesday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${wednesday[number].id})}" th:text="${wednesday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(thursday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${thursday[number].id})}" th:text="${thursday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(friday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${friday[number].id})}" th:text="${friday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(saturday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${saturday[number].id})}" th:text="${saturday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+                <div th:switch="${#lists.size(sunday) > number}">
+                    <td th:case="false" th:text="' '"></td>
+                    <td class="selectable" th:case="*">
+                        <a th:href="@{/detailEvent/{id}(id=${sunday[number].id})}" th:text="${sunday[number].name}">!!!ERROR!!!</a>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
